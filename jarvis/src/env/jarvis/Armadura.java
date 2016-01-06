@@ -2,16 +2,11 @@
 
 package jarvis;
 
-import java.util.List;
-
 import cartago.*;
 
 public class Armadura extends Artifact {
-	private boolean hibernando = true;
-	private static List<String> posicoesDefesa;
-	
-	void init() {
-		
+	void init(int initialValue) {
+		defineObsProperty("count", initialValue);
 	}
 	
 	@OPERATION

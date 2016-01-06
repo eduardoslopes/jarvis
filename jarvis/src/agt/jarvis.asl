@@ -17,9 +17,9 @@
 	.print("Tony, foi marcada uma reunião para amanhã às 10h");
 	.send(tony, tell, ir_reuniao(10)).
 
-+dobrar_seguranca : true <-	
-	.print("Dobrando segurança noturna");
-	.send(controladorArmadura, tell, noite("yes")).
++dobrar_seguranca : true <-
+	.print("Dobrando segurança noturna");	
+	.send(controladorArmadura, tell, noite(yes)).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

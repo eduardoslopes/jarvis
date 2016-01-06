@@ -1,14 +1,13 @@
 // Agent controladorArmadura in project jarvis
 
 /* Initial beliefs and rules */
-
+noite(N).
 /* Initial goals */
-
-!start.
 
 /* Plans */
 
-+!start : true <- .print("hello world.").
++noite(yes) : true
+	<- .print("Assumindo posicao").
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
