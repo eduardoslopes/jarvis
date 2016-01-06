@@ -6,7 +6,7 @@ noite(N).
 
 /* Plans */
 
-+noite(yes) : true
++noite(N) : N == "yes" 
 	<- .print("Assumindo posicao").
 
 { include("$jacamoJar/templates/common-cartago.asl") }
