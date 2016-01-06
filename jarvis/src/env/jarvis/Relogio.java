@@ -2,6 +2,9 @@
 
 package jarvis;
 
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Random;
 
 import cartago.*;
@@ -19,6 +22,7 @@ public class Relogio extends Artifact {
 	void startRelogio() {
 		ligado = true;
 		execInternalOp("countRelogio");
+		execInternalOp("protecaoNoturna");
 	}
 	
 	@OPERATION
@@ -31,9 +35,16 @@ public class Relogio extends Artifact {
 		if(ligado) {
 			Random tempo = new Random();
 			contadorTempo = tempo.nextInt(5000) + 5000;
-			System.out.println(contadorTempo);
 			await_time(contadorTempo);
 			signal("reuniao");
+		}
+	}
+	
+	@INTERNAL_OPERATION
+	void protecaoNoturna() {
+		Calendar hora = new GregorianCalendar();
+		if(hora.get(Calendar.HOUR_OF_DAY) >= 18) {
+			signal("dobrar_seguranca"); 
 		}
 	}
 	

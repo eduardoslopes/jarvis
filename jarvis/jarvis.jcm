@@ -12,7 +12,13 @@ mas jarvis {
 
     agent jarvis
     agent tony
+    agent controladorArmadura {
+    	instances : 10
+    }
     
+    workspace arsenal {
+    	artifact armadura: jarvis.Armadura(10)
+    }
 /* 
    agent definition
 
