@@ -4,11 +4,18 @@
 
 /* Initial goals */
 
-!start.
+!criar_relogio.
 
 /* Plans */
 
-+!start : true <- .print("hello world.").
++!criar_relogio : true <-
+	makeArtifact("relogio", "jarvis.Relogio", [], IDArtifact);
+	focus(IDArtifact);
+	startRelogio.
+
++reuniao : true <-
+	.print("Tony, foi marcada uma reunião para amanhã às 10h");
+	.send(tony, tell, ir_reuniao(10)).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

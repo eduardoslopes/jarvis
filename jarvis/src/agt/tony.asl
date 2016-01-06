@@ -1,14 +1,13 @@
 // Agent tony in project jarvis
 
 /* Initial beliefs and rules */
+ir_reuniao(N).
 
 /* Initial goals */
 
-!start.
 
 /* Plans */
-
-+!start : true <- .print("hello world.").
++ir_reuniao(N) : N >= 10 <- .print("Irei a reuniao").
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

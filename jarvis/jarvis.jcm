@@ -10,7 +10,8 @@
 
 mas jarvis {
 
-    agent sample_agent
+    agent jarvis
+    agent tony
     
 /* 
    agent definition
