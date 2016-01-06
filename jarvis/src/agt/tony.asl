@@ -7,7 +7,7 @@ ir_reuniao(N).
 
 
 /* Plans */
-+ir_reuniao(N) : N >= 10 <- .print("Irei a reuniao").
++ir_reuniao(N) : N >= 10 <- .print("Jarvis, confirme minha presença na reuniao").
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
