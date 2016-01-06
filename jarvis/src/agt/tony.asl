@@ -7,6 +7,7 @@ ir_reuniao(N).
 
 
 /* Plans */
+//Teste
 +ir_reuniao(N) : N >= 10 <- .print("Jarvis, confirme minha presença na reuniao").
 
 { include("$jacamoJar/templates/common-cartago.asl") }
