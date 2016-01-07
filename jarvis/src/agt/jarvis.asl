@@ -5,6 +5,7 @@ protecao_noturna_ativada("no").
 
 /* Initial goals */
 !criar_relogio.
+!buscar_noticias.
 
 /* Plans */
 
@@ -12,6 +13,15 @@ protecao_noturna_ativada("no").
 	makeArtifact("relogio", "jarvis.Relogio", [], IDArtifact);
 	focus(IDArtifact);
 	startRelogio.
+	
++!buscar_noticias: true <-
+	makeArtifact("internet", "jarvis.Internet", [], IDArtifact);
+	focus(IDArtifact);
+	buscar_noticias.
+	
++!avisar_local(Coord): Coord > 1 & Coord < 6 
+	<- .print("Tony, existe perigo em ", Coord);
+	.send(tony, tell, aviso_perigo(Coord)).
 
 +tic : true <-
 	protecaoNoturna.
@@ -25,6 +35,13 @@ protecao_noturna_ativada("no").
 	.send(controladorArmadura1, tell, posicionar);
 	.send(controladorArmadura2, tell, posicionar);
 	-+protecao_noturna_ativada("yes").
+	
++nova_noticia(Noticia, Lugar) : true <-
+	makeArtifact("gps", "jarvis.GPS", [], IDArtifact);
+	focus(IDArtifact);
+	busca_coordenada_local(Lugar, Coordenada);
+	!avisar_local(Coordenada).
+	
 	
 +desativar_seguranca_noturna : protecao_noturna_ativada("yes") <-
 	.print("Desativando protecao noturna");

@@ -1,6 +1,9 @@
 // Agent tony in project jarvis
 
 /* Initial beliefs and rules */
+
+ir_reuniao(N).
+aviso_perigo(Coord).
 ir_reuniao(Horario).
 
 /* Initial goals */
@@ -10,6 +13,9 @@ ir_reuniao(Horario).
 
 +ir_reuniao(Horario) : Horario >= 10 
 	<- .print("Jarvis, confirme minha presença na reuniao").
+	
++aviso_perigo(Coord): Coord > 1 & Coord < 5 
+	<- .print("Jarvis, envie armaduras para coordenada ", Coord).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
