@@ -5,6 +5,7 @@
 /* Initial goals */
 
 !criar_relogio.
+!buscar_noticias.
 
 /* Plans */
 
@@ -12,6 +13,15 @@
 	makeArtifact("relogio", "jarvis.Relogio", [], IDArtifact);
 	focus(IDArtifact);
 	startRelogio.
+	
++!buscar_noticias: true <-
+	makeArtifact("internet", "jarvis.Internet", [], IDArtifact);
+	focus(IDArtifact);
+	buscar_noticias.
+	
++!avisar_local(Coord): Coord > 1 & Coord < 6 
+	<- .print("Tony, existe perigo em ", Coord);
+	.send(tony, tell, aviso_perigo(Coord)).
 
 +reuniao : true <-
 	.print("Tony, foi marcada uma reunião para amanhã às 10h");
@@ -29,6 +39,13 @@
 	.send(controladorArmadura8, tell, noite("yes"));
 	.send(controladorArmadura9, tell, noite("yes"));
 	.send(controladorArmadura10, tell, noite("yes")).
+	
++nova_noticia(Noticia, Lugar) : true <-
+	makeArtifact("gps", "jarvis.GPS", [], IDArtifact);
+	focus(IDArtifact);
+	busca_coordenada_local(Lugar, Coordenada);
+	!avisar_local(Coordenada).
+	
 	
 
 { include("$jacamoJar/templates/common-cartago.asl") }
