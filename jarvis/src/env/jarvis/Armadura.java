@@ -5,8 +5,17 @@ package jarvis;
 import cartago.*;
 
 public class Armadura extends Artifact {
+	
+	boolean posicaoNoturna = false;
+	
 	void init(int initialValue) {
 		defineObsProperty("count", initialValue);
+	}
+	
+	@OPERATION
+	void setPosicaoNoturna(boolean posicao) {
+		posicaoNoturna = posicao;
+		if(posicaoNoturna) System.out.println("ok");
 	}
 	
 	@OPERATION

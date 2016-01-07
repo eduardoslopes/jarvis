@@ -11,6 +11,10 @@ ir_reuniao(Horario).
 
 /* Plans */
 
++!posicionar.
+
++!desposicionar.
+
 +ir_reuniao(Horario) : Horario >= 10 
 	<- .print("Jarvis, confirme minha presença na reuniao").
 	

@@ -17,7 +17,7 @@ mas jarvis {
     }
     
     workspace arsenal {
-    	artifact armadura: jarvis.Armadura(10)
+    	artifact mk: jarvis.Armadura(10)
     }
 /* 
    agent definition
