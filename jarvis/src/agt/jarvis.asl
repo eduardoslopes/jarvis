@@ -22,12 +22,14 @@ protecao_noturna_ativada("no").
 
 +dobrar_seguranca : protecao_noturna_ativada("no") <-
 	.print("Dobrando segurança noturna");
-	.send(controladorArmadura1, tell, posicionar("true"));
+	.send(controladorArmadura1, tell, posicionar);
+	.send(controladorArmadura2, tell, posicionar);
 	-+protecao_noturna_ativada("yes").
 	
 +desativar_seguranca_noturna : protecao_noturna_ativada("yes") <-
 	.print("Desativando protecao noturna");
-	.send(controladorArmadura1, tell, posicionar("false"));
+	.send(controladorArmadura1, tell, desposicionar);
+	.send(controladorArmadura2, tell, desposicionar);
 	-+protecao_noturna_ativada("no").
 	
 { include("$jacamoJar/templates/common-cartago.asl") }

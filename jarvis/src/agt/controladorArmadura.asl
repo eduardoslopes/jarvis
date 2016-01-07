@@ -6,11 +6,11 @@ posicionado("false").
 
 /* Plans */
 
-+posicionar(A) : A == "true" & posicionado("false")
++posicionar : posicionado("false")
 	<- .print("Assumindo posicao noturna");
 	-+posicionado("true").
 
-+posicionar(A) : A == "false" & posicionado("true")
++desposicionar : posicionado("true")
 	<- .print("Fora da posicao noturna");
 	-+posicionado("false").
 
