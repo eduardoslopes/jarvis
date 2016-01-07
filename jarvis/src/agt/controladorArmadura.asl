@@ -1,13 +1,18 @@
 // Agent controladorArmadura in project jarvis
 
 /* Initial beliefs and rules */
-noite(N).
+posicionado("false").
 /* Initial goals */
 
 /* Plans */
 
-+noite(N) : N == "yes" 
-	<- .print("Assumindo posicao").
++posicionar : posicionado("false")
+	<- .print("Assumindo posicao noturna");
+	-+posicionado("true").
+
++desposicionar : posicionado("true")
+	<- .print("Fora da posicao noturna");
+	-+posicionado("false").
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

@@ -1,15 +1,17 @@
 // Agent tony in project jarvis
 
 /* Initial beliefs and rules */
+
 ir_reuniao(N).
 aviso_perigo(Coord).
+ir_reuniao(Horario).
 
 /* Initial goals */
 
 
 /* Plans */
-//Teste
-+ir_reuniao(N) : N >= 10 
+
++ir_reuniao(Horario) : Horario >= 10 
 	<- .print("Jarvis, confirme minha presença na reuniao").
 	
 +aviso_perigo(Coord): Coord > 1 & Coord < 5 
