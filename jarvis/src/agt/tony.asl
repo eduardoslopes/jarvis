@@ -1,14 +1,14 @@
 // Agent tony in project jarvis
 
 /* Initial beliefs and rules */
-ir_reuniao(N).
+ir_reuniao(Horario).
 
 /* Initial goals */
 
 
 /* Plans */
-//Teste
-+ir_reuniao(N) : N >= 10 
+
++ir_reuniao(Horario) : Horario >= 10 
 	<- .print("Jarvis, confirme minha presença na reuniao").
 
 { include("$jacamoJar/templates/common-cartago.asl") }

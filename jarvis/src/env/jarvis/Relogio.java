@@ -10,8 +10,9 @@ import cartago.*;
 
 public class Relogio extends Artifact {
 	
-	private long contadorTempo;
-	private boolean ligado;
+	final static long TICK_TIME = 1000;
+	long contadorTempo;
+	boolean ligado;
 	
 	void init(int initialValue) {
 		
@@ -19,9 +20,9 @@ public class Relogio extends Artifact {
 	
 	@OPERATION
 	void startRelogio() {
-		ligado = true;
+		ligado = true;		
 		execInternalOp("countRelogio");
-		execInternalOp("protecaoNoturna");
+		execInternalOp("segundos");
 	}
 	
 	@OPERATION
@@ -33,17 +34,27 @@ public class Relogio extends Artifact {
 	void countRelogio() {
 		if(ligado) {
 			Random tempo = new Random();
-			contadorTempo = tempo.nextInt(5000) + 5000;
+			contadorTempo = tempo.nextInt(55000) + 5000;
 			await_time(contadorTempo);
 			signal("reuniao");
 		}
 	}
 	
-	@INTERNAL_OPERATION
+	@OPERATION
 	void protecaoNoturna() {
 		Calendar hora = new GregorianCalendar();
 		if(hora.get(Calendar.HOUR_OF_DAY) >= 18) {
 			signal("dobrar_seguranca"); 
+		} else if(hora.get(Calendar.HOUR_OF_DAY) >= 6) {
+			signal("desativar_seguranca_noturna");
+		}
+	}
+	
+	@INTERNAL_OPERATION
+	void segundos() {
+		while(ligado) {
+			signal("tic");
+			await_time(TICK_TIME);
 		}
 	}
 	

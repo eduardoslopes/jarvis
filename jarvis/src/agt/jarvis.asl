@@ -1,9 +1,9 @@
 // Agent jarvis in project jarvis
 
 /* Initial beliefs and rules */
+protecao_noturna_ativada("no").
 
 /* Initial goals */
-
 !criar_relogio.
 
 /* Plans */
@@ -13,24 +13,23 @@
 	focus(IDArtifact);
 	startRelogio.
 
++tic : true <-
+	protecaoNoturna.
+
 +reuniao : true <-
 	.print("Tony, foi marcada uma reunião para amanhã às 10h");
 	.send(tony, tell, ir_reuniao(10)).
 
-+dobrar_seguranca : true <-
++dobrar_seguranca : protecao_noturna_ativada("no") <-
 	.print("Dobrando segurança noturna");
-	.send(controladorArmadura1, tell, noite("yes"));
-	.send(controladorArmadura2, tell, noite("yes"));	
-	.send(controladorArmadura3, tell, noite("yes"));
-	.send(controladorArmadura4, tell, noite("yes"));
-	.send(controladorArmadura5, tell, noite("yes"));
-	.send(controladorArmadura6, tell, noite("yes"));
-	.send(controladorArmadura7, tell, noite("yes"));
-	.send(controladorArmadura8, tell, noite("yes"));
-	.send(controladorArmadura9, tell, noite("yes"));
-	.send(controladorArmadura10, tell, noite("yes")).
+	.send(controladorArmadura1, tell, posicionar("true"));
+	-+protecao_noturna_ativada("yes").
 	
-
++desativar_seguranca_noturna : protecao_noturna_ativada("yes") <-
+	.print("Desativando protecao noturna");
+	.send(controladorArmadura1, tell, posicionar("false"));
+	-+protecao_noturna_ativada("no").
+	
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
 
