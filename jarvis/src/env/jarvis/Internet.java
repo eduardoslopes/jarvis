@@ -13,7 +13,6 @@ public class Internet extends Artifact {
 	
 	void init() {
 		noticias = new RepositorioNoticias();
-		System.out.println("Aqui chegou");
 	}
 	
 	@OPERATION

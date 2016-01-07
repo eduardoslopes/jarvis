@@ -22,6 +22,10 @@ protecao_noturna_ativada("no").
 +!avisar_local(Coord): Coord > 1 & Coord < 6 
 	<- .print("Tony, existe perigo em ", Coord);
 	.send(tony, tell, aviso_perigo(Coord)).
+	
++!avisar_local(Coord): Coord < 2 | Coord >= 6 
+	<- .print("Tony, existe perigo em ", Coord);
+	.send(tony, tell, aviso_perigo(Coord)).
 
 +tic : true <-
 	protecaoNoturna.

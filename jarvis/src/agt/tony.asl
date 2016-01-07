@@ -16,6 +16,9 @@ ir_reuniao(Horario).
 	
 +aviso_perigo(Coord): Coord > 1 & Coord < 5 
 	<- .print("Jarvis, envie armaduras para coordenada ", Coord).
+	
++aviso_perigo(Coord): Coord < 2 | Coord >= 5 
+	<- .print("Jarvis, Nao me importo com este lugar! ", Coord).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

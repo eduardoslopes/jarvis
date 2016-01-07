@@ -24,7 +24,7 @@ public class RepositorioNoticias {
 	public Noticia getNoticia(){
 		Random r = new Random();
 		int i = r.nextInt(9);
-		return noticias.get(1);
+		return noticias.get(i);
 	}
 	
 }
