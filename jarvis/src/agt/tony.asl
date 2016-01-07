@@ -2,6 +2,7 @@
 
 /* Initial beliefs and rules */
 ir_reuniao(N).
+aviso_perigo(Coord).
 
 /* Initial goals */
 
@@ -10,6 +11,9 @@ ir_reuniao(N).
 //Teste
 +ir_reuniao(N) : N >= 10 
 	<- .print("Jarvis, confirme minha presença na reuniao").
+	
++aviso_perigo(Coord): Coord > 1 & Coord < 5 
+	<- .print("Jarvis, envie armaduras para coordenada ", Coord).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
