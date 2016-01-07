@@ -36,22 +36,21 @@ protecao_noturna_ativada("no").
 
 +dobrar_seguranca : protecao_noturna_ativada("no") <-
 	.print("Dobrando segurança noturna");
-	.send(controladorArmadura1, tell, posicionar);
-	.send(controladorArmadura2, tell, posicionar);
+	.send(controladorArmadura1, achieve, posicionar);
+	.send(controladorArmadura2, achieve, posicionar);
 	-+protecao_noturna_ativada("yes").
+	
++desativar_seguranca_noturna : protecao_noturna_ativada("yes") <-
+	.print("Desativando protecao noturna");
+	.send(controladorArmadura1, achieve, desposicionar);
+	.send(controladorArmadura2, achieve, desposicionar);
+	-+protecao_noturna_ativada("no").
 	
 +nova_noticia(Noticia, Lugar) : true <-
 	makeArtifact("gps", "jarvis.GPS", [], IDArtifact);
 	focus(IDArtifact);
 	busca_coordenada_local(Lugar, Coordenada);
 	!avisar_local(Coordenada).
-	
-	
-+desativar_seguranca_noturna : protecao_noturna_ativada("yes") <-
-	.print("Desativando protecao noturna");
-	.send(controladorArmadura1, tell, desposicionar);
-	.send(controladorArmadura2, tell, desposicionar);
-	-+protecao_noturna_ativada("no").
 	
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

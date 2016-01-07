@@ -1,19 +1,21 @@
 // Agent controladorArmadura in project jarvis
 
 /* Initial beliefs and rules */
-posicionado.
+
 desposicionado.
 /* Initial goals */
 
 /* Plans */
 
-+posicionar : desposicionado
++!posicionar : desposicionado
 	<- .print("Assumindo posicao noturna");
-	-desposicionado.
+	-desposicionado;
+	+posicionado.
 
-+desposicionar : posicionado
++!desposicionar : posicionado
 	<- .print("Fora da posicao noturna");
-	-posicionado.
+	-posicionado;
+	+desposicionado.
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
