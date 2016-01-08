@@ -20,6 +20,7 @@ aviso_perigo(Coord).
 	
 +!ir_reuniao(Horario, Pessoa) : Horario < 10 | Horario > 18 
 	<- .print("Jarvis, nao irei a essa reuniao com ", Pessoa);
+	+nao_marcar_reuniao(Horario, Pessoa);
 	.send(jarvis, tell, nao_marcar_reuniao(Horario, Pessoa)).
 	
 +aviso_perigo(Coord): Coord > 1 & Coord < 5 
