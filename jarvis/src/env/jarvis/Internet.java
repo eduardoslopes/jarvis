@@ -3,6 +3,7 @@
 package jarvis;
 
 import java.util.Random;
+import objects.*;
 
 import cartago.*;
 import objects.Noticia;
@@ -10,14 +11,25 @@ import objects.RepositorioNoticias;
 
 public class Internet extends Artifact {
 	RepositorioNoticias noticias;
+	RepositorioReunioes reunioes;
 	
 	void init() {
 		noticias = new RepositorioNoticias();
+		reunioes = new RepositorioReunioes();
 	}
 	
 	@OPERATION
 	void buscar_noticias(){
 		execInternalOp("monitorar_noticias");
+		execInternalOp("novaReuniao");
+	}
+	
+	@INTERNAL_OPERATION
+	void novaReuniao() {
+		Random tempo = new Random();
+		await_time(tempo.nextInt(10000) + 1000);
+		Reuniao reuniao = reunioes.getReuniao();
+		signal("reuniao", reuniao.getHorario(), reuniao.getPessoa());
 	}
 	
 	@INTERNAL_OPERATION

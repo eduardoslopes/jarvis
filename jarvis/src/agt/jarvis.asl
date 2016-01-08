@@ -30,11 +30,9 @@ protecao_noturna_ativada("no").
 +tic : true <-
 	protecaoNoturna.
 
-+reuniao : true <-
-	.print("Tony, foi marcada uma reunião para amanhã às 8h com Willian");
-	.send(tony, achieve, ir_reuniao(8, "Willian"));
-	.print("Tony, foi marcada uma reunião para amanhã às 10h com Pepper");
-	.send(tony, achieve, ir_reuniao(10, "Pepper")).
++reuniao(Horario, Pessoa) : true <-
+	.print("Tony, foi marcada uma reunião para amanhã às ", Horario, "h com ", Pessoa);
+	.send(tony, achieve, ir_reuniao(Horario, Pessoa)).
 	
 
 +dobrar_seguranca : protecao_noturna_ativada("no") <-
