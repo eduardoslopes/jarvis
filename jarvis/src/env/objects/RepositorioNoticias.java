@@ -23,7 +23,7 @@ public class RepositorioNoticias {
 	
 	public Noticia getNoticia(){
 		Random r = new Random();
-		int i = r.nextInt(9);
+		int i = r.nextInt(noticias.size());
 		return noticias.get(i);
 	}
 	

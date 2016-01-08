@@ -22,7 +22,7 @@ public class RepositorioReunioes {
 	
 	public Reuniao getReuniao(){
 		Random r = new Random();
-		int i = r.nextInt(6);
+		int i = r.nextInt(reunioes.size());
 		return reunioes.get(i);
 	}
 
