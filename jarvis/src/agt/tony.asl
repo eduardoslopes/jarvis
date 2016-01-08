@@ -2,9 +2,7 @@
 
 /* Initial beliefs and rules */
 
-ir_reuniao(N).
 aviso_perigo(Coord).
-ir_reuniao(Horario).
 
 /* Initial goals */
 
@@ -15,8 +13,14 @@ ir_reuniao(Horario).
 
 +!desposicionar.
 
-+ir_reuniao(Horario) : Horario >= 10 
-	<- .print("Jarvis, confirme minha presença na reuniao").
++!ir_reuniao(Horario, Pessoa) : Horario >= 10 & Horario <= 18 
+	<- .print("Jarvis, confirme minha presença na reuniao com ", Pessoa);
+	+reunir(Horario);
+	.send(jarvis, tell, marcar_reuniao(Horario, Pessoa)).
+	
++!ir_reuniao(Horario, Pessoa) : Horario < 10 | Horario > 18 
+	<- .print("Jarvis, nao irei a essa reuniao com ", Pessoa);
+	.send(jarvis, tell, nao_marcar_reuniao(Horario, Pessoa)).
 	
 +aviso_perigo(Coord): Coord > 1 & Coord < 5 
 	<- .print("Jarvis, envie armaduras para coordenada ", Coord).
