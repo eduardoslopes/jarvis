@@ -26,21 +26,24 @@ public class Internet extends Artifact {
 	
 	@INTERNAL_OPERATION
 	void novaReuniao() {
-		Random tempo = new Random();
-		await_time(tempo.nextInt(10000) + 1000);
-		Reuniao reuniao = reunioes.getReuniao();
-		signal("reuniao", reuniao.getHorario(), reuniao.getPessoa());
+		while(reunioes.getQTDReuniao() > 0) {
+			Random tempo = new Random();
+			await_time(tempo.nextInt(10000) + 1000);
+			Reuniao reuniao = reunioes.getReuniao();
+			signal("reuniao", reuniao.getHorario(), reuniao.getPessoa());
+			reunioes.removeReuniao(reuniao);
+		}
 	}
 	
 	@INTERNAL_OPERATION
 	void monitorar_noticias(){
-//		while(true) {
+		while(true) {
 			Random tempo = new Random();
 			int contadorTempo = tempo.nextInt(15000) + 1000;
 			await_time(contadorTempo);
 			Noticia noticia = noticias.getNoticia();			
 			signal("nova_noticia", noticia.getNoticia(), noticia.getLugar());
-//		}
+		}
 	}
 	
 	@OPERATION

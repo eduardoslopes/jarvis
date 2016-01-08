@@ -20,6 +20,14 @@ public class RepositorioReunioes {
 		reunioes.add(new Reuniao(21, "Agente Colson"));
 	}
 	
+	public void removeReuniao(Reuniao r) {
+		reunioes.remove(r);
+	}
+	
+	public int getQTDReuniao() {
+		return reunioes.size();
+	}
+	
 	public Reuniao getReuniao(){
 		Random r = new Random();
 		int i = r.nextInt(reunioes.size());
