@@ -6,6 +6,7 @@ protecao_noturna_ativada("no").
 /* Initial goals */
 !criar_relogio.
 !buscar_noticias.
+!criar_agenda.
 
 /* Plans */
 
@@ -19,6 +20,10 @@ protecao_noturna_ativada("no").
 	focus(IDArtifact);
 	buscar_noticias.
 	
++!criar_agenda : true <-
+	makeArtifact("agenda", "jarvis.Agenda", [], IDArtifact);
+	focus(IDArtifact).
+
 +!avisar_local(Coord): Coord > 1 & Coord < 6 
 	<- .print("Tony, existe perigo em ", Coord);
 	.send(tony, tell, aviso_perigo(Coord)).
@@ -26,14 +31,17 @@ protecao_noturna_ativada("no").
 +!avisar_local(Coord): Coord < 2 | Coord >= 6 
 	<- .print("Tony, existe perigo em ", Coord);
 	.send(tony, tell, aviso_perigo(Coord)).
+	
++!marcar_reuniao(Horario, Pessoa) : true
+	<- .print("Confirmando reuniao para às ", Horario, "h com ", Pessoa);
+	marcar_reuniao_agenda(Horario, Pessoa).
 
 +tic : true <-
 	protecaoNoturna.
 
 +reuniao(Horario, Pessoa) : true <-
-	.print("Tony, foi marcada uma reunião para amanhã às ", Horario, "h com ", Pessoa);
+	.print("Tony, foi marcada uma reunião para às ", Horario, "h com ", Pessoa);
 	.send(tony, achieve, ir_reuniao(Horario, Pessoa)).
-	
 
 +dobrar_seguranca : protecao_noturna_ativada("no") <-
 	.print("Dobrando segurança noturna");
@@ -51,9 +59,7 @@ protecao_noturna_ativada("no").
 	busca_coordenada_local(Lugar, Coordenada);
 	!avisar_local(Coordenada);
 	-nova_noticia(Noticia, Lugar).
-	
-
-	
+		
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
 
