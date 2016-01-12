@@ -4,11 +4,7 @@
 
 /* Initial goals */
 
-!start.
-
 /* Plans */
-
-+!start : true <- .print("hello world.").
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

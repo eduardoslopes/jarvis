@@ -7,6 +7,7 @@ protecao_noturna_ativada("no").
 !criar_relogio.
 !buscar_noticias.
 !criar_agenda.
+!criar_gps.
 
 /* Plans */
 
@@ -14,6 +15,10 @@ protecao_noturna_ativada("no").
 	makeArtifact("relogio", "jarvis.Relogio", [], IDArtifact);
 	focus(IDArtifact);
 	startRelogio.
+
++!criar_gps : true <-
+	makeArtifact("gps", "jarvis.GPS", [], IDArtifact);
+	focus(IDArtifact).
 	
 +!buscar_noticias: true <-
 	makeArtifact("internet", "jarvis.Internet", [], IDArtifact);
@@ -54,8 +59,6 @@ protecao_noturna_ativada("no").
 	-+protecao_noturna_ativada("no").
 	
 +nova_noticia(Noticia, Lugar) : true <-
-	makeArtifact("gps", "jarvis.GPS", [], IDArtifact);
-	focus(IDArtifact);
 	busca_coordenada_local(Lugar, Coordenada);
 	!avisar_local(Coordenada);
 	-nova_noticia(Noticia, Lugar).

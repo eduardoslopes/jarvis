@@ -37,12 +37,13 @@ public class Internet extends Artifact {
 	
 	@INTERNAL_OPERATION
 	void monitorar_noticias(){
-		while(true) {
+		while(noticias.getQTDNoticia() > 0) {
 			Random tempo = new Random();
 			int contadorTempo = tempo.nextInt(20000) + 1000;
 			await_time(contadorTempo);
 			Noticia noticia = noticias.getNoticia();			
 			signal("nova_noticia", noticia.getNoticia(), noticia.getLugar());
+			noticias.removeNoticia(noticia);
 		}
 	}
 	

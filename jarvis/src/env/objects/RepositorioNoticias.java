@@ -27,4 +27,12 @@ public class RepositorioNoticias {
 		return noticias.get(i);
 	}
 	
+	public int getQTDNoticia() {
+		return noticias.size();
+	}
+	
+	public void removeNoticia(Noticia n) {
+		noticias.remove(n);
+	}
+	
 }
