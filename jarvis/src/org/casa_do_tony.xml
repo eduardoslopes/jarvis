@@ -14,44 +14,80 @@
 <structural-specification>
 
 <role-definitions>
-    <role id="role1" />
-    <role id="role2" />
+    <role id="assistente_pessoal" />
+    <role id="chefe" />
 </role-definitions>
 
-<group-specification id="group1">
+<group-specification id="casa_do_tony">
     <roles>
-        <role id="role1" min="1" max="1"/>
-        <role id="role2" min="1" max="1"/>
+        <role id="assistente_pessoal" min="1" max="1"/>
+        <role id="chefe" min="1" max="1"/>
     </roles>
  
-    <links>
+   <!-- <links>
        <link from="role1" to="role2" type="authority"     scope="intra-group" bi-dir="false"/>
        <link from="role2" to="role1" type="communication" scope="intra-group" bi-dir="false"/>
     </links>
     <formation-constraints>
        <compatibility from="role1" to="role2" />
-    </formation-constraints>
+    </formation-constraints>-->
 </group-specification>
 </structural-specification>
 
 <functional-specification>
-    <scheme id="scheme1">
-        <goal id="goal1">
-            <plan operator="sequence">
-                <goal id="goal2"    ttf="20 minutes" ds="description goal2"/>
-                <goal id="goal3"/>
+    <scheme id="casa_inteligente">
+
+	<goal id="dia_a_dia">
+		<plan operator="parallel">
+		
+		<goal id="marcar_reuniao">
+		    <plan operator="parallel">
+				<goal id="ir_reuniao"/>
+			</plan>
+		</goal>  
+		
+		<goal id="defender_ponto_interesse">
+            <plan operator="parallel">
+	            <goal id="buscar_noticias"/>
+	            <goal id="criar_gps"/>
             </plan>
         </goal>
-
-        <mission id="mission1" min="1" max="1">
-            <goal id="goal2"/>
-            <goal id="goal3"/>
-        </mission>
+		
+		 
+		
+		</plan>
+	</goal>
+	
+		
+	<mission id="missaoDefenderPontoDeInteresse" min="1" max="10">
+	   	<goal id="buscar_noticias"/>
+	    <goal id="criar_gps"/>
+	    <goal id="defender_ponto_interesse"/>
+	</mission>
+	
+	<mission id="missaoMarcarReuniao" min="1" max="1">
+		
+		<goal id="marcar_reuniao"/>
+	
+	</mission>
+	
+	<mission id="missaoPrincipal" min="1" max="1">
+		<goal id="dia_a_dia"/>	
+	</mission>
+		
+	<mission id="missaoIrReuniao" min="1" max="1">
+		<goal id="ir_reuniao"/>	
+	</mission>
+	
+	
     </scheme>
 </functional-specification>
 
 <normative-specification>
-    <norm id="norm1" type="obligation" role="role2" mission="mission1"/>
+    <norm id="norm1" type="obligation" role="assistente_pessoal" mission="missaoDefenderPontoDeInteresse"/>
+    <norm id="norm2" type="obligation" role="assistente_pessoal" mission="missaoMarcarReuniao"/>
+    <norm id="norm3" type="obligation" role="chefe" mission="missaoIrReuniao"/>
+     <norm id="norm4" type="obligation" role="assistente_pessoal" mission="missaoPrincipal"/>
 </normative-specification>
 
 </organisational-specification>

@@ -13,7 +13,7 @@ aviso_perigo(Coord).
 
 +!desposicionar.
 
-+!ir_reuniao(Horario, Pessoa) : Horario >= 10 & Horario <= 18 
++!ir_reuniao(Horario, Pessoa) : Horario >= 10 & Horario <= 18
 	<- .print("Jarvis, confirme minha presença na reuniao com ", Pessoa);
 	+reunir(Horario);
 	.send(jarvis, achieve, marcar_reuniao(Horario, Pessoa)).
@@ -33,4 +33,4 @@ aviso_perigo(Coord).
 { include("$jacamoJar/templates/common-moise.asl") }
 
 // uncomment the include below to have a agent that always complies with its organization  
-//{ include("$jacamoJar/templates/org-obedient.asl") }
+{ include("$jacamoJar/templates/org-obedient.asl") }

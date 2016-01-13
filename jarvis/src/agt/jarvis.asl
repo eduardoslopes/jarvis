@@ -5,11 +5,13 @@ protecao_noturna_ativada("no").
 
 /* Initial goals */
 !criar_relogio.
-!buscar_noticias.
+//!buscar_noticias.
 !criar_agenda.
-!criar_gps.
+//!criar_gps.
 
 /* Plans */
+
++!defender_ponto_interesse. 
 
 +!criar_relogio : true <-
 	makeArtifact("relogio", "jarvis.Relogio", [], IDArtifact);
@@ -40,6 +42,8 @@ protecao_noturna_ativada("no").
 +!marcar_reuniao(Horario, Pessoa) : true
 	<- .print("Confirmando reuniao para às ", Horario, "h com ", Pessoa);
 	marcar_reuniao_agenda(Horario, Pessoa).
+	
++!dia_a_dia.
 
 +tic : true <-
 	protecaoNoturna.
@@ -67,4 +71,4 @@ protecao_noturna_ativada("no").
 { include("$jacamoJar/templates/common-moise.asl") }
 
 // uncomment the include below to have a agent that always complies with its organization  
-//{ include("$jacamoJar/templates/org-obedient.asl") }
+{ include("$jacamoJar/templates/org-obedient.asl") }

@@ -12,13 +12,28 @@ mas jarvis {
 
     agent jarvis
     agent tony
+    
     agent controladorArmadura {
     	instances : 10
     }
     
+    
+    
     workspace arsenal {
     	artifact mk: jarvis.Armadura(10)
     }
+    
+    organisation casa_tony: casa_do_tony.xml {
+		group casa_tony_group: casa_do_tony {
+			responsible-for: a1
+			players: jarvis assistente_pessoal,
+					tony chefe
+        	debug	         
+		}
+		scheme a1: casa_inteligente {
+			debug
+		}
+	}
 /* 
    agent definition
 

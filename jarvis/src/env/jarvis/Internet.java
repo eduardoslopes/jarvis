@@ -28,7 +28,7 @@ public class Internet extends Artifact {
 	void novaReuniao() {
 		while(reunioes.getQTDReuniao() > 0) {
 			Random tempo = new Random();
-			await_time(tempo.nextInt(20000) + 1000);
+			await_time(tempo.nextInt(2000) + 1000);
 			Reuniao reuniao = reunioes.getReuniao();
 			signal("reuniao", reuniao.getHorario(), reuniao.getPessoa());
 			reunioes.removeReuniao(reuniao);
@@ -39,7 +39,7 @@ public class Internet extends Artifact {
 	void monitorar_noticias(){
 		while(noticias.getQTDNoticia() > 0) {
 			Random tempo = new Random();
-			int contadorTempo = tempo.nextInt(20000) + 1000;
+			int contadorTempo = tempo.nextInt(2000) + 1000;
 			await_time(contadorTempo);
 			Noticia noticia = noticias.getNoticia();			
 			signal("nova_noticia", noticia.getNoticia(), noticia.getLugar());
