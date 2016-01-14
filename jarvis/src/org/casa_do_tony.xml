@@ -2,92 +2,108 @@
 
 <?xml-stylesheet href="http://moise.sourceforge.net/xml/os.xsl" type="text/xsl" ?>
 
-<organisational-specification 
-    id="casa_do_tony"
-    os-version="0.8"
-  
-    xmlns='http://moise.sourceforge.net/os'
-    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:schemaLocation='http://moise.sourceforge.net/os
-                        http://moise.sourceforge.net/xml/os.xsd' >
-    
-<structural-specification>
+<organisational-specification id="casa_do_tony"
+	os-version="0.8" xmlns='http://moise.sourceforge.net/os' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xsi:schemaLocation='http://moise.sourceforge.net/os
+                        http://moise.sourceforge.net/xml/os.xsd'>
 
-<role-definitions>
-    <role id="assistente_pessoal" />
-    <role id="chefe" />
-</role-definitions>
+	<structural-specification>
 
-<group-specification id="casa_do_tony">
-    <roles>
-        <role id="assistente_pessoal" min="1" max="1"/>
-        <role id="chefe" min="1" max="1"/>
-    </roles>
- 
-   <!-- <links>
-       <link from="role1" to="role2" type="authority"     scope="intra-group" bi-dir="false"/>
-       <link from="role2" to="role1" type="communication" scope="intra-group" bi-dir="false"/>
-    </links>
-    <formation-constraints>
-       <compatibility from="role1" to="role2" />
-    </formation-constraints>-->
-</group-specification>
-</structural-specification>
+		<role-definitions>
+			<role id="assistente_pessoal" />
+			<role id="chefe" />
+			<role id="juiz" />
 
-<functional-specification>
-    <scheme id="casa_inteligente">
+		</role-definitions>
 
-	<goal id="dia_a_dia">
-		<plan operator="parallel">
-		
-		<goal id="marcar_reuniao">
-		    <plan operator="parallel">
-				<goal id="ir_reuniao"/>
-			</plan>
-		</goal>  
-		
-		<goal id="defender_ponto_interesse">
-            <plan operator="parallel">
-	            <goal id="buscar_noticias"/>
-	            <goal id="criar_gps"/>
-            </plan>
-        </goal>
-		
-		 
-		
-		</plan>
-	</goal>
-	
-		
-	<mission id="missaoDefenderPontoDeInteresse" min="1" max="10">
-	   	<goal id="buscar_noticias"/>
-	    <goal id="criar_gps"/>
-	    <goal id="defender_ponto_interesse"/>
-	</mission>
-	
-	<mission id="missaoMarcarReuniao" min="1" max="1">
-		
-		<goal id="marcar_reuniao"/>
-	
-	</mission>
-	
-	<mission id="missaoPrincipal" min="1" max="1">
-		<goal id="dia_a_dia"/>	
-	</mission>
-		
-	<mission id="missaoIrReuniao" min="1" max="1">
-		<goal id="ir_reuniao"/>	
-	</mission>
-	
-	
-    </scheme>
-</functional-specification>
+		<group-specification id="casa_do_tony">
+			<roles>
+				<role id="assistente_pessoal" min="1" max="1" />
+				<role id="chefe" min="1" max="1" />
+				<role id="juiz" min="1" max="1" />
+			</roles>
 
-<normative-specification>
-    <norm id="norm1" type="obligation" role="assistente_pessoal" mission="missaoDefenderPontoDeInteresse"/>
-    <norm id="norm2" type="obligation" role="assistente_pessoal" mission="missaoMarcarReuniao"/>
-    <norm id="norm3" type="obligation" role="chefe" mission="missaoIrReuniao"/>
-     <norm id="norm4" type="obligation" role="assistente_pessoal" mission="missaoPrincipal"/>
+			<!-- <links> <link from="role1" to="role2" type="authority" scope="intra-group" 
+				bi-dir="false"/> <link from="role2" to="role1" type="communication" scope="intra-group" 
+				bi-dir="false"/> </links> <formation-constraints> <compatibility from="role1" 
+				to="role2" /> </formation-constraints> -->
+		</group-specification>
+	</structural-specification>
+
+	<functional-specification>
+		<scheme id="casa_inteligente">
+
+			<goal id="dia_a_dia">
+				<plan operator="parallel">
+
+					<goal id="defender_ponto_interesse">
+						<plan operator="parallel">
+							<goal id="buscar_noticias" />
+							<goal id="criar_gps" />
+						</plan>
+					</goal>
+	
+					<goal id="marcar_reuniao">
+						<plan operator="sequence">
+							<goal id="ir_reuniao" ttf = "30 seconds"/>
+							<goal id="marcar_reuniao" />
+						</plan>
+					</goal>		
+					
+					<goal id="nao_marcar_reuniao">
+						<plan operator="sequence">
+							<goal id="ir_reuniao" />
+							<goal id="nao_marcar_reuniao"/>
+						</plan>
+					</goal>				
+				</plan>
+			</goal>
+
+
+			<mission id="missaoDefenderPontoDeInteresse" min="1" max="10">
+				<goal id="buscar_noticias" />
+				<goal id="criar_gps" />
+				<goal id="defender_ponto_interesse" />
+			</mission>
+
+			<mission id="missaoMarcarReuniao" min="1" max="1">
+
+				<goal id="marcar_reuniao" />
+
+			</mission>
+			
+			<mission id="missaoNaoMarcarReuniao" min="1" max="1">
+
+				<goal id="nao_marcar_reuniao" />
+
+			</mission>
+			
+			<mission id="missaoPrincipal" min="1" max="1">
+				<goal id="dia_a_dia" />
+			</mission>
+
+			<mission id="missaoIrReuniao" min="1" max="1">
+				<goal id="ir_reuniao" />
+			</mission>
+
+
+		</scheme>
+	</functional-specification>
+
+	<normative-specification>
+	<norm id="norm1" type="obligation" role="assistente_pessoal"
+		mission="missaoDefenderPontoDeInteresse" />
+
+	<norm id="norm2" type="obligation" role="assistente_pessoal"
+		mission="missaoMarcarReuniao" />
+
+	<norm id="norm3" type="obligation" role="chefe" mission="missaoIrReuniao" />
+
+	<norm id="norm4" type="obligation" role="assistente_pessoal"
+		mission="missaoPrincipal" />
+
+	<norm id="norm5" type="obligation" role="assistente_pessoal"
+		mission="missaoNaoMarcarReuniao" />
 </normative-specification>
 
 </organisational-specification>

@@ -1,23 +1,13 @@
-/* 
-
-    JaCaMo Project File 
-    
-    This file defines the initial state of the MAS (initial agents, environment, organisation, ....)
-    
-    (see below the documentation about what can be defined in this file)
-
-*/
-
 mas jarvis {
 
     agent jarvis
     agent tony
-    
+    agent observador
+    agent test1
+    agent test2
     agent controladorArmadura {
     	instances : 10
     }
-    
-    
     
     workspace arsenal {
     	artifact mk: jarvis.Armadura(10)
@@ -27,7 +17,8 @@ mas jarvis {
 		group casa_tony_group: casa_do_tony {
 			responsible-for: a1
 			players: jarvis assistente_pessoal,
-					tony chefe
+					tony chefe,
+					observador juiz
         	debug	         
 		}
 		scheme a1: casa_inteligente {
