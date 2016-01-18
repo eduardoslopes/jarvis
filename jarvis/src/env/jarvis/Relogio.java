@@ -42,6 +42,10 @@ public class Relogio extends Artifact {
 	@INTERNAL_OPERATION
 	void segundos() {
 		while(ligado) {
+			Calendar hora = new GregorianCalendar();
+			if(hora.get(Calendar.HOUR_OF_DAY) == 19){
+				signal("hora_jantar");
+			}
 			signal("tic");
 			await_time(TICK_TIME);
 		}

@@ -5,6 +5,7 @@ mas jarvis {
     agent observador
     agent test1
     agent test2
+    agent peper
     agent controladorArmadura {
     	instances : 10
     }

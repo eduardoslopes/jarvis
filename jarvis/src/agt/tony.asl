@@ -22,6 +22,12 @@ aviso_perigo(Coord).
 	<- .print("Jarvis, nao irei a essa reuniao com ", Pessoa);
 	+nao_marcar_reuniao(Horario, Pessoa);
 	.send(jarvis, tell, nao_marcar_reuniao(Horario, Pessoa)).
+
++!jantar(Carne, Cebola, Macarrao, Molho, Refrigerante): Macarrao == true & Molho == true <-
+	.send("peper", achieve, cozinhar(true)).
+
++!jantar(Carne, Cebola, Macarrao, Molho, Refrigerante): Macarrao == false & Molho == false <-
+	.send("peper", achieve, cozinhar(false)).
 	
 +aviso_perigo(Coord): Coord > 1 & Coord < 5 
 	<- .print("Jarvis, envie armaduras para coordenada ", Coord).

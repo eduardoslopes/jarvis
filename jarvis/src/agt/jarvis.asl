@@ -8,6 +8,7 @@ protecao_noturna_ativada("no").
 //!buscar_noticias.
 !criar_agenda.
 //!criar_gps.
+!criar_geladeira.
 
 /* Plans */
 
@@ -17,6 +18,11 @@ protecao_noturna_ativada("no").
 	makeArtifact("relogio", "jarvis.Relogio", [], IDArtifact);
 	focus(IDArtifact);
 	startRelogio.
+
++!criar_geladeira : true <-
+	makeArtifact("geladeira", "jarvis.Geladeira", [], IDArtifact);
+	focus(IDArtifact).
+
 
 +!criar_gps : true <-
 	makeArtifact("gps", "jarvis.GPS", [], IDArtifact);
@@ -44,6 +50,9 @@ protecao_noturna_ativada("no").
 	marcar_reuniao_agenda(Horario, Pessoa).
 	
 +!dia_a_dia.
+
++!verificar_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante): true <-
+	ingredientes_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante).
 
 +tic : true <-
 	protecaoNoturna.
