@@ -21,7 +21,6 @@ public class Relogio extends Artifact {
 	@OPERATION
 	void startRelogio() {
 		ligado = true;		
-//		execInternalOp("countRelogio");
 		execInternalOp("segundos");
 	}
 	
@@ -29,16 +28,6 @@ public class Relogio extends Artifact {
 	void stopRelogio() {
 		ligado = false;
 	}
-	
-//	@INTERNAL_OPERATION
-//	void countRelogio() {
-//		if(ligado) {
-//			Random tempo = new Random();
-//			contadorTempo = tempo.nextInt(55000) + 5000;
-//			await_time(contadorTempo);
-//			signal("reuniao");
-//		}
-//	}
 	
 	@OPERATION
 	void protecaoNoturna() {
