@@ -2,6 +2,7 @@
 
 /* Initial beliefs and rules */
 protecao_noturna_ativada("no").
+houve_jantar(false).
 
 /* Initial goals */
 !criar_relogio.
@@ -52,7 +53,14 @@ protecao_noturna_ativada("no").
 +!dia_a_dia.
 
 +!verificar_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante): true <-
-	ingredientes_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante).
+	ingredientes_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante);
+	.send("peper", tell, tem_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante)).
+	
++!jantar_positivo : true <-
+	-+houve_jantar(true).
+	
++hora_jantar : houve_jantar(false) <-
+	.send("peper", achieve, hora_jantar).
 
 +tic : true <-
 	protecaoNoturna.

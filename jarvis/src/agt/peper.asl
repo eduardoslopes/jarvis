@@ -6,17 +6,24 @@
 
 /* Plans */
 
-+!tony_jantar(Carne, Cebola, Macarrao, Molho, Refrigerante):true <-
-	.send("tony", achieve, jantar(Carne, Cebola, Macarrao, Molho, Refrigerante)).
-	
-+!cozinhar(Confirmacao):Confirmacao == true <- 
-	.print("Farei o jantar para você, Tony.").
-	
-+!cozinhar(Confirmacao):Confirmacao == false <- 
-	.print("Ok, não farei o jantar, Tony.").
++!posicionar.
++!desposicionar.
 
-+hora_jantar: true <- 
-	.send("jarvis", achieve, verificar_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante));
++!tony_jantar(Carne, Cebola, Macarrao, Molho, Refrigerante):true <-
+	.send("tony", achieve, jantar(Carne, Cebola, Macarrao, Molho, Refrigerante));
+	.print("Quer jantar, Tony?").
+	
++!cozinhar(Confirmacao) : Confirmacao == true <- 
+	.send("jarvis", achieve, jantar_positivo);
+	.print("Farei o jantar para voce, Tony.").
+	
++!cozinhar(Confirmacao) : Confirmacao == false <- 
+	.print("Ok, nao farei o jantar, Tony.").
+
++!hora_jantar : true <- 
+	.send("jarvis", achieve, verificar_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante)).
+	
++tem_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante) : true <-
 	!tony_jantar(Carne, Cebola, Macarrao, Molho, Refrigerante).
 
 

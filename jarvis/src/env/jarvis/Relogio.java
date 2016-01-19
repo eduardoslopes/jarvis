@@ -4,7 +4,6 @@ package jarvis;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Random;
 
 import cartago.*;
 
@@ -37,6 +36,13 @@ public class Relogio extends Artifact {
 		} else if(hora.get(Calendar.HOUR_OF_DAY) >= 6) {
 			signal("desativar_seguranca_noturna");
 		}
+	}
+	
+	@OPERATION
+	void ehOutroDia(OpFeedbackParam<Boolean> outroDia) {
+		Calendar hora = new GregorianCalendar();
+		if(hora.get(Calendar.HOUR_OF_DAY) >= 19) 
+			outroDia.set(true); 
 	}
 	
 	@INTERNAL_OPERATION

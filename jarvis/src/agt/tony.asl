@@ -24,10 +24,12 @@ aviso_perigo(Coord).
 	.send(jarvis, tell, nao_marcar_reuniao(Horario, Pessoa)).
 
 +!jantar(Carne, Cebola, Macarrao, Molho, Refrigerante): Macarrao == true & Molho == true <-
-	.send("peper", achieve, cozinhar(true)).
+	.send("peper", achieve, cozinhar(true));
+	.print("Adoraria jantar com voce, Pepper").
 
-+!jantar(Carne, Cebola, Macarrao, Molho, Refrigerante): Macarrao == false & Molho == false <-
-	.send("peper", achieve, cozinhar(false)).
++!jantar(Carne, Cebola, Macarrao, Molho, Refrigerante): Macarrao == false | Molho == false <-
+	.send("peper", achieve, cozinhar(false));
+	.print("Hoje nao, Pepper. Estou com dor de cabeca...").
 	
 +aviso_perigo(Coord): Coord > 1 & Coord < 5 
 	<- .print("Jarvis, envie armaduras para coordenada ", Coord).
