@@ -4,6 +4,8 @@
 
 aviso_perigo(Coord).
 
+acordado(true).
+
 /* Initial goals */
 
 /* Plans */
@@ -34,11 +36,13 @@ aviso_perigo(Coord).
 //+!convidar_festa : true <-
 //	.send("jarvis", achieve, convidar_festa).
 	
-+dormir : true <-
++dormir : acordado(true) <-
 	.print("Preciso dormir bem. Ser o homem de ferro não é fácil");
-	.send(jarvis, achieve, dormi).	
+	.send(jarvis, achieve, dormi);
+	-+acordado(false).	
 
-+acordar : true <-
++acordar : acordado(false) <-
+	-+acordado(true);
 	.print("Ok, estou acordado");
 	.send(jarvis, achieve, acordei).
 	
