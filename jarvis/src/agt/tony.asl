@@ -4,7 +4,8 @@
 
 aviso_perigo(Coord).
 carro(Carro).
-acordado(true).
+relogio(IDArtifact).
+//acordado(1).
 
 /* Initial goals */
 
@@ -13,6 +14,9 @@ acordado(true).
 +!posicionar.
 
 +!desposicionar.
+
++relogio(IDArtifact) : true
+<-lookupArtifact(IDArtifact).
 
 +carro(Carro) : true
 <- .print("Obrigado por ter me providenciado o meu ", Carro, " Jarvis!").
@@ -48,13 +52,11 @@ acordado(true).
 //+!convidar_festa : true <-
 //	.send("jarvis", achieve, convidar_festa).
 	
-+dormir : acordado(true) <-
-	.print("Preciso dormir bem. Ser o homem de ferro nÃ£o Ã© fÃ¡cil");
-	.send(jarvis, achieve, dormi);
-	-+acordado(false).	
-
-+acordar : acordado(false) <-
-	-+acordado(true);
++dormir : true <-
+	.print("Preciso dormir bem. Ser o homem de ferro não é fácil");
+	.send(jarvis, achieve, dormi).
+	
++acordar : true <-
 	.print("Ok, estou acordado");
 	.send(jarvis, achieve, acordei).
 	

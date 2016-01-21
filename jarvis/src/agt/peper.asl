@@ -26,6 +26,12 @@
 +!cozinhar(Confirmacao) : Confirmacao == false <- 
 	.print("Ok, nao farei o jantar, Tony.").
 
++dormir : true <-
+	.print("Preciso dormir bem. Ser o homem de ferro não é fácil").	
++acordar : true <-
+	.print("Ok, estou acordado").
+
+
 +!hora_jantar : true <- 
 	.send("jarvis", achieve, verificar_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante)).
 	
