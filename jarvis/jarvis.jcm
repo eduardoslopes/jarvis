@@ -3,8 +3,6 @@ mas jarvis {
     agent jarvis
     agent tony
     agent observador
-    agent test1
-    agent test2
     agent peper
     agent controladorArmadura {
     	instances : 10
@@ -13,6 +11,7 @@ mas jarvis {
     workspace arsenal {
     	artifact mk: jarvis.Armadura(10)
     }
+    
     
     organisation casa_tony: casa_do_tony.xml {
 		group casa_tony_group: casa_do_tony {

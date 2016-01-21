@@ -9,7 +9,7 @@ tony_acordado(true).
 !criar_relogio.
 !criar_agenda.
 !criar_geladeira.
-
+!criar_garagem.
 /* Plans */
 
 +!defender_ponto_interesse. 
@@ -18,6 +18,11 @@ tony_acordado(true).
 	makeArtifact("relogio", "jarvis.Relogio", [], IDArtifact);
 	focus(IDArtifact);
 	startRelogio.
+
++!criar_garagem : true <-
+	makeArtifact("garagem", "objects.Garagem", [], IDArtifact);
+	focus(IDArtifact);
+	colocarCarros.
 
 +!criar_geladeira : true <-
 	makeArtifact("geladeira", "jarvis.Geladeira", [], IDArtifact);
@@ -77,6 +82,14 @@ tony_acordado(true).
 +!reuniao(Horario, Pessoa) : tony_acordado(false) <-
 	.send(tony, tell, acordar);
 	!reuniao(Horario, Pessoa).
+
++!escolher_carro : true 
+<- .print("Ok tony, irei preparar um carro para o senhor prontamente!");
+	.wait(1000);
+	escolherUmCarro(Carro);
+	.print("Tony, o seu ", Carro, " está pronto!");
+	.send(tony, tell, carro(Carro)).
+	
 
 +hora_jantar : houve_jantar(false) <-
 	.send(peper, achieve, hora_jantar).

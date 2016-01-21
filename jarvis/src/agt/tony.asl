@@ -3,7 +3,7 @@
 /* Initial beliefs and rules */
 
 aviso_perigo(Coord).
-
+carro(Carro).
 acordado(true).
 
 /* Initial goals */
@@ -14,15 +14,27 @@ acordado(true).
 
 +!desposicionar.
 
++carro(Carro) : true
+<- .print("Obrigado por ter me providenciado o meu ", Carro, " Jarvis!").
+
 +!ir_reuniao(Horario, Pessoa) : Horario >= 10 & Horario <= 18
 	<- .print("Jarvis, confirme minha presenÃ§a na reuniao com ", Pessoa);
 	+reunir(Horario);
-	.send(jarvis, achieve, marcar_reuniao(Horario, Pessoa)).
+	.send(jarvis, achieve, marcar_reuniao(Horario, Pessoa));
+		!escolherVeiculo(Horario, Pessoa).
 
 +!ir_reuniao(Horario, Pessoa) : Horario < 10 | Horario > 18 
 	<- .print("Jarvis, nao irei a essa reuniao com ", Pessoa);
 	+nao_marcar_reuniao(Horario, Pessoa);
 	.send(jarvis, tell, nao_marcar_reuniao(Horario, Pessoa)).
+
+
+//Novo plano para colocar um veículo para o Tony se locomover para suas reuniões
++!escolherVeiculo(Horario, Pessoa) : true 
+<- 	
+	.print("Jarvis, por favor prepare um carro para a minha reunião com ", Pessoa, " as ", Horario);
+	.send(jarvis, achieve, escolher_carro).
+
 
 +!jantar(Carne, Cebola, Macarrao, Molho, Refrigerante): Macarrao == true & Molho == true <-
 	.send(peper, achieve, cozinhar(true));
