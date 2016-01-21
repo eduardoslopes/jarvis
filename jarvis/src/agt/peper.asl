@@ -3,11 +3,16 @@
 /* Initial beliefs and rules */
 
 /* Initial goals */
+!criar_fogao.
 
 /* Plans */
 
 +!posicionar.
 +!desposicionar.
+
++!criar_fogao : true <-
+	makeArtifact("fogao", "jarvis.Fogao", [], IDArtifact);
+	focus(IDArtifact).
 
 +!tony_jantar(Carne, Cebola, Macarrao, Molho, Refrigerante):true <-
 	.send("tony", achieve, jantar(Carne, Cebola, Macarrao, Molho, Refrigerante));
@@ -15,7 +20,8 @@
 	
 +!cozinhar(Confirmacao) : Confirmacao == true <- 
 	.send("jarvis", achieve, jantar_positivo);
-	.print("Farei o jantar para voce, Tony.").
+	.print("Farei o jantar para voce, Tony.");
+	colocar_no_fogo.
 	
 +!cozinhar(Confirmacao) : Confirmacao == false <- 
 	.print("Ok, nao farei o jantar, Tony.").
@@ -26,7 +32,8 @@
 +tem_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante) : true <-
 	!tony_jantar(Carne, Cebola, Macarrao, Molho, Refrigerante).
 
-
++comida_pronta : true <-
+	.print("Comida está pronta").
 
 
 { include("$jacamoJar/templates/common-cartago.asl") }
