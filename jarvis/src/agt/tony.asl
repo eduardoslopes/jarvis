@@ -6,7 +6,6 @@ aviso_perigo(Coord).
 
 /* Initial goals */
 
-
 /* Plans */
 
 +!posicionar.
@@ -24,12 +23,24 @@ aviso_perigo(Coord).
 	.send(jarvis, tell, nao_marcar_reuniao(Horario, Pessoa)).
 
 +!jantar(Carne, Cebola, Macarrao, Molho, Refrigerante): Macarrao == true & Molho == true <-
-	.send("peper", achieve, cozinhar(true));
+	.send(peper, achieve, cozinhar(true));
 	.print("Adoraria jantar com voce, Pepper").
 
 +!jantar(Carne, Cebola, Macarrao, Molho, Refrigerante): Macarrao == false | Molho == false <-
-	.send("peper", achieve, cozinhar(false));
+	.send(peper, achieve, cozinhar(false));
 	.print("Hoje nao, Pepper. Estou com dor de cabeca...").
+	
+//
+//+!convidar_festa : true <-
+//	.send("jarvis", achieve, convidar_festa).
+	
++dormir : true <-
+	.print("Preciso dormir bem. Ser o homem de ferro não é fácil");
+	.send(jarvis, achieve, dormi).	
+
++acordar : true <-
+	.print("Ok, estou acordado");
+	.send(jarvis, achieve, acordei).
 	
 +aviso_perigo(Coord): Coord > 1 & Coord < 5 
 	<- .print("Jarvis, envie armaduras para coordenada ", Coord).

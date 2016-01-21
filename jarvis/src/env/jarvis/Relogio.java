@@ -52,6 +52,12 @@ public class Relogio extends Artifact {
 			if(hora.get(Calendar.HOUR_OF_DAY) == 19){
 				signal("hora_jantar");
 			}
+			else if(hora.get(Calendar.HOUR_OF_DAY) >= 8) {
+				signal("acordar");
+			}
+			if(hora.get(Calendar.HOUR_OF_DAY) >= 23) {
+				signal("dormir");
+			}
 			signal("tic");
 			await_time(TICK_TIME);
 		}

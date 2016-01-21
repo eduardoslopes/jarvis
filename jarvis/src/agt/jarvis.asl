@@ -3,12 +3,11 @@
 /* Initial beliefs and rules */
 protecao_noturna_ativada("no").
 houve_jantar(false).
+tony_acordado(true).
 
 /* Initial goals */
 !criar_relogio.
-//!buscar_noticias.
 !criar_agenda.
-//!criar_gps.
 !criar_geladeira.
 
 /* Plans */
@@ -45,29 +44,47 @@ houve_jantar(false).
 +!avisar_local(Coord): Coord < 2 | Coord >= 6 
 	<- .print("Tony, existe perigo em ", Coord);
 	.send(tony, tell, aviso_perigo(Coord)).
+
+//+!avisar_local(Coord) : tony_acordado(false) <-
+//	.send(tony, tell, acordar).
 	
 +!marcar_reuniao(Horario, Pessoa) : true
 	<- .print("Confirmando reuniao para às ", Horario, "h com ", Pessoa);
-	marcar_reuniao_agenda(Horario, Pessoa).
-	
+	marcar_reuniao_agenda(Horario, Pessoa).	
+
 +!dia_a_dia.
 
 +!verificar_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante): true <-
 	ingredientes_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante);
-	.send("peper", tell, tem_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante)).
+	.send(peper, tell, tem_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante)).
 	
+// O jantar foi confirmado
 +!jantar_positivo : true <-
 	-+houve_jantar(true).
+
+// Sinal enviado pelo tony para avisar que vai dormir
++!dormi : true <-
+	-+tony_acordado(false).	
+
+// Sinal enviado pelo tony para avisar que acordou
++!acordei : true <-
+	-+tony_acordado(true).
 	
++!reuniao(Horario, Pessoa) : tony_acordado(true) <- 
+	.print("Tony, foi marcada uma reunião para às ", Horario, "h com ", Pessoa);
+	.send(tony, achieve, ir_reuniao(Horario, Pessoa)).
+	
++!reuniao(Horario, Pessoa) : tony_acordado(false) <-
+	.send(tony, tell, acordar);
+	!reuniao(Horario, Pessoa).
+
 +hora_jantar : houve_jantar(false) <-
-	.send("peper", achieve, hora_jantar).
+	.send(peper, achieve, hora_jantar).
 
 +tic : true <-
 	protecaoNoturna.
 
-+reuniao(Horario, Pessoa) : true <-
-	.print("Tony, foi marcada uma reunião para às ", Horario, "h com ", Pessoa);
-	.send(tony, achieve, ir_reuniao(Horario, Pessoa)).
++reuniao(Horario, Pessoa) : true <- !reuniao(Horario, Pessoa). 
 
 +dobrar_seguranca : protecao_noturna_ativada("no") <-
 	.print("Dobrando segurança noturna");
