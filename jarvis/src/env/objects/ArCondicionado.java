@@ -1,7 +1,6 @@
 package objects;
 
 import cartago.*;
-import java.util.Random;
 
 public class ArCondicionado extends Artifact {
 
@@ -30,12 +29,12 @@ public class ArCondicionado extends Artifact {
 	}
 
 	@OPERATION
-	public void modificarTemperatura(int valor1, int valor2, OpFeedbackParam<Double> temperaturaInt) {
+	public void modificarTemperatura(int valor1, int valor2, OpFeedbackParam<Double> temperaturaValor) {
 
 		if (status == 1) {
 
 			temperatura = rand(valor1, valor2);
-			temperaturaInt.set(temperatura);
+			temperaturaValor.set(temperatura);
 		} else {
 
 			System.out.println("Erro, artefato não inicializado!");
