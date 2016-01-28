@@ -17,9 +17,16 @@ tony_acordado(true).
 +!criar_arcondicionado : true
 <- 	makeArtifact("arCondicionado", "objects.ArCondicionado", [1], IDArtifact);
 	focus(IDArtifact);
-	definirTemperatura(20,Temp);
+	definirTemperatura(12,Temp);
 	.print("Ar-condicionado ligado!");
-	.print("Temperatura ambiente: ", Temp, " graus!").
+	.print("Temperatura ambiente: ", Temp, " graus!");
+	.send(tony, achieve, arCondicionado(12)).
+
+
++!modificarTemperatura(A, B) : true
+<- 	modificarTemperatura(A, B, TempValor);
+	.send(tony, achieve, arCondicionado(TempValor));
+	.print("Tony, a temperatura foi alterada para ", TempValor, " graus!").
 
 +!defender_ponto_interesse. 
 

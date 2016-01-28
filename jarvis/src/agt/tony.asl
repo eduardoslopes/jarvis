@@ -14,6 +14,13 @@ acordado(true).
 
 +!desposicionar.
 
++!arCondicionado(A) : A >= 20 | A <= 15
+ <- .send(jarvis, achieve, modificarTemperatura(16, 20));
+ 	.print("Jarvis, esta temperatura não me agrada, por favor modifique-a!"). 
+
++!arCondicionado(A) : A <= 20 | A >= 15
+ <- .print("Jarvis, esta temperatura me agrada, obrigado!"). 
+
 
 +carro(Carro) : true
 <- .print("Obrigado por ter me providenciado o meu ", Carro, " Jarvis!").
