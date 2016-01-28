@@ -33,7 +33,8 @@ tony_acordado(true).
 +!criar_relogio : true <-
 	makeArtifact("relogio", "jarvis.Relogio", [], IDArtifact);
 	focus(IDArtifact);
-	startRelogio.
+	startRelogio;
+	.send(tony, tell, relogio(IDArtifact)).
 	
 +!criar_garagem : true <-
 	makeArtifact("garagem", "objects.Garagem", [], IDArtifact);
@@ -114,9 +115,13 @@ tony_acordado(true).
 +!enviar_armaduras(Coord): true
 	<- selecionaArmaduras(Coord).
 
++!destruido(Nome): true
+	<- percaNoArsenal(Nome).
+
 +invoca(Arm, Coord): true 
 	<- .print("Invocando Armadura ", Arm);
-	 .send(Arm, achieve, ir_para(Coord)).
+	 .send(Arm, achieve, ir_para(Coord));
+	 .send(esbagacador_armaduras, achieve, julgar_armadura(Arm, Coord)).
 
 +hora_jantar : houve_jantar(false) <-
 	.send(peper, achieve, hora_jantar).
@@ -140,6 +145,10 @@ tony_acordado(true).
 	busca_coordenada_local(Lugar, Coordenada);
 	!avisar_local(Coordenada);
 	-nova_noticia(Noticia, Lugar).
+	
++criar_armadura(Nome): true
+	<- .send(ajudante, achieve, criar_armadura(Nome)).
+	
 
 +acordar : true & tony_acordado(false)
 <- .send(tony, achieve, ficar_acordado).

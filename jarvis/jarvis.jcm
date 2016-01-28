@@ -7,6 +7,8 @@ mas jarvis {
     agent controladorArmadura {
     	instances : 10
     }
+    agent esbagacador_armaduras
+    agent ajudante
     
     workspace arsenal {
     	artifact mk: jarvis.Armadura(10)
