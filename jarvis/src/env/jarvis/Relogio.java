@@ -58,6 +58,7 @@ public class Relogio extends Artifact {
 			if(hora.get(Calendar.HOUR_OF_DAY) < 8) {
 				signal("dormir");
 			}
+			
 			signal("tic");
 			await_time(TICK_TIME);
 		}

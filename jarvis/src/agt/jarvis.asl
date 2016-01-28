@@ -18,7 +18,8 @@ tony_acordado(true).
 +!criar_relogio : true <-
 	makeArtifact("relogio", "jarvis.Relogio", [], IDArtifact);
 	focus(IDArtifact);
-	startRelogio.
+	startRelogio;
+	.send(tony, tell, relogio(IDArtifact)).
 
 +!criar_garagem : true <-
 	makeArtifact("garagem", "objects.Garagem", [], IDArtifact);
@@ -75,11 +76,11 @@ tony_acordado(true).
 
 // Sinal enviado pelo tony para avisar que vai dormir
 +!dormi : true <-
-	-+tony_acordado(false).	
+	+tony_acordado(false).	
 
 // Sinal enviado pelo tony para avisar que acordou
 +!acordei : true <-
-	-+tony_acordado(true).
+	+tony_acordado(true).
 	
 +!reuniao(Horario, Pessoa) : tony_acordado(true) <- 
 	.print("Tony, foi marcada uma reunião para às ", Horario, "h com ", Pessoa);
