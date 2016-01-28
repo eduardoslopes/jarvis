@@ -29,10 +29,10 @@ acordado(true).
 	.send(jarvis, tell, nao_marcar_reuniao(Horario, Pessoa)).
 
 
-//Novo plano para colocar um veículo para o Tony se locomover para suas reuniões
+//Novo plano para colocar um veï¿½culo para o Tony se locomover para suas reuniï¿½es
 +!escolherVeiculo(Horario, Pessoa) : true 
 <- 	
-	.print("Jarvis, por favor prepare um carro para a minha reunião com ", Pessoa, " as ", Horario);
+	.print("Jarvis, por favor prepare um carro para a minha reuniï¿½o com ", Pessoa, " as ", Horario);
 	.send(jarvis, achieve, escolher_carro).
 
 
@@ -59,10 +59,11 @@ acordado(true).
 	.send(jarvis, achieve, acordei).
 	
 +aviso_perigo(Coord): Coord > 1 & Coord < 5 
-	<- .print("Jarvis, envie armaduras para coordenada ", Coord).
+	<- .print("Jarvis, envie armaduras para coordenada ", Coord);
+	.send(jarvis, achieve, enviar_armaduras(Coord)).
 	
 +aviso_perigo(Coord): Coord < 2 | Coord >= 5 
-	<- .print("Jarvis, Nao me importo com este lugar! ", Coord).
+	<- .print("Jarvis, Nao me importo com ", Coord).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

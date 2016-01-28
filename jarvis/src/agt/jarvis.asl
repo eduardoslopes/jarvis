@@ -10,6 +10,7 @@ tony_acordado(true).
 !criar_agenda.
 !criar_geladeira.
 !criar_garagem.
+!criar_arsenal.
 /* Plans */
 
 +!defender_ponto_interesse. 
@@ -41,6 +42,11 @@ tony_acordado(true).
 +!criar_agenda : true <-
 	makeArtifact("agenda", "jarvis.Agenda", [], IDArtifact);
 	focus(IDArtifact).
+	
++!criar_arsenal : true 
+	<- makeArtifact("arsenal", "jarvis.ArsenalArmaduras", [], IDArtifact);
+	focus(IDArtifact);
+	.broadcast(achieve, tem_armadura);.
 
 +!avisar_local(Coord): Coord > 1 & Coord < 6 
 	<- .print("Tony, existe perigo em ", Coord);
@@ -87,9 +93,27 @@ tony_acordado(true).
 <- .print("Ok tony, irei preparar um carro para o senhor prontamente!");
 	.wait(1000);
 	escolherUmCarro(Carro);
-	.print("Tony, o seu ", Carro, " está pronto!");
+	.print("Tony, o seu ", Carro, " estï¿½ pronto!");
 	.send(tony, tell, carro(Carro)).
 	
++!adiciona(NomeArmadura): true
+	<- inserirNoArsenal(NomeArmadura).
+	
++!enviar_armaduras(Coord): true
+	<- selecionaArmaduras(Coord).
+	//.print([a,b,c,d]);
+	//!invocar_armaduras(Armaduras, Coord).
+	
+//+!invocar_armaduras([C|Armaduras], Coord): true
+//	<- .print("Invocando Armadura ", C);
+//	 .send(C, achieve, ir_para(Coord));
+//	 !invocar_armaduras(Armaduras, Coord).
+	 
+//+!invocar_armaduras([], 0).
+
++invoca(Arm, Coord): true 
+	<- .print("Invocando Armadura ", Arm);
+	 .send(Arm, achieve, ir_para(Coord)).
 
 +hora_jantar : houve_jantar(false) <-
 	.send(peper, achieve, hora_jantar).
