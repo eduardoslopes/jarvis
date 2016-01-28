@@ -102,19 +102,14 @@ tony_acordado(true).
 	
 +!enviar_armaduras(Coord): true
 	<- selecionaArmaduras(Coord).
-	//.print([a,b,c,d]);
-	//!invocar_armaduras(Armaduras, Coord).
-	
-//+!invocar_armaduras([C|Armaduras], Coord): true
-//	<- .print("Invocando Armadura ", C);
-//	 .send(C, achieve, ir_para(Coord));
-//	 !invocar_armaduras(Armaduras, Coord).
-	 
-//+!invocar_armaduras([], 0).
+
++!destruido(Nome): true
+	<- percaNoArsenal(Nome).
 
 +invoca(Arm, Coord): true 
 	<- .print("Invocando Armadura ", Arm);
-	 .send(Arm, achieve, ir_para(Coord)).
+	 .send(Arm, achieve, ir_para(Coord));
+	 .send(esbagacador_armaduras, achieve, julgar_armadura(Arm, Coord)).
 
 +hora_jantar : houve_jantar(false) <-
 	.send(peper, achieve, hora_jantar).
@@ -138,6 +133,10 @@ tony_acordado(true).
 	busca_coordenada_local(Lugar, Coordenada);
 	!avisar_local(Coordenada);
 	-nova_noticia(Noticia, Lugar).
+	
++criar_armadura(Nome): true
+	<- .send(ajudante, achieve, criar_armadura(Nome)).
+	
 		
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
