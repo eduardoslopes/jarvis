@@ -11,7 +11,15 @@ tony_acordado(true).
 !criar_geladeira.
 !criar_garagem.
 !criar_arsenal.
+!criar_arcondicionado.
 /* Plans */
+
++!criar_arcondicionado : true
+<- 	makeArtifact("arCondicionado", "objects.ArCondicionado", [1], IDArtifact);
+	focus(IDArtifact);
+	definirTemperatura(20,Temp);
+	.print("Ar-condicionado ligado!");
+	.print("Temperatura ambiente: ", Temp, " graus!").
 
 +!defender_ponto_interesse. 
 
@@ -46,7 +54,7 @@ tony_acordado(true).
 +!criar_arsenal : true 
 	<- makeArtifact("arsenal", "jarvis.ArsenalArmaduras", [], IDArtifact);
 	focus(IDArtifact);
-	.broadcast(achieve, tem_armadura);.
+	.broadcast(achieve, tem_armadura).
 
 +!avisar_local(Coord): Coord > 1 & Coord < 6 
 	<- .print("Tony, existe perigo em ", Coord);
@@ -55,9 +63,6 @@ tony_acordado(true).
 +!avisar_local(Coord): Coord < 2 | Coord >= 6 
 	<- .print("Tony, existe perigo em ", Coord);
 	.send(tony, tell, aviso_perigo(Coord)).
-
-//+!avisar_local(Coord) : tony_acordado(false) <-
-//	.send(tony, tell, acordar).
 	
 +!marcar_reuniao(Horario, Pessoa) : true
 	<- .print("Confirmando reuniao para às ", Horario, "h com ", Pessoa);
@@ -101,15 +106,6 @@ tony_acordado(true).
 	
 +!enviar_armaduras(Coord): true
 	<- selecionaArmaduras(Coord).
-	//.print([a,b,c,d]);
-	//!invocar_armaduras(Armaduras, Coord).
-	
-//+!invocar_armaduras([C|Armaduras], Coord): true
-//	<- .print("Invocando Armadura ", C);
-//	 .send(C, achieve, ir_para(Coord));
-//	 !invocar_armaduras(Armaduras, Coord).
-	 
-//+!invocar_armaduras([], 0).
 
 +invoca(Arm, Coord): true 
 	<- .print("Invocando Armadura ", Arm);
@@ -141,5 +137,4 @@ tony_acordado(true).
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
 
-// uncomment the include below to have a agent that always complies with its organization  
 { include("$jacamoJar/templates/org-obedient.asl") }

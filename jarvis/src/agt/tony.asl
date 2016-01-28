@@ -14,6 +14,7 @@ acordado(true).
 
 +!desposicionar.
 
+
 +carro(Carro) : true
 <- .print("Obrigado por ter me providenciado o meu ", Carro, " Jarvis!").
 

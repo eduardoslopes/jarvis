@@ -26,7 +26,7 @@
 +tem_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante) : true <-
 	!tony_jantar(Carne, Cebola, Macarrao, Molho, Refrigerante).
 
-
++!tem_armadura : true .
 
 
 { include("$jacamoJar/templates/common-cartago.asl") }
