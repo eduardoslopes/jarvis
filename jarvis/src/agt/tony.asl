@@ -5,11 +5,60 @@
 aviso_perigo(Coord).
 carro(Carro).
 relogio(IDArtifact).
+ocupado(false).
 //acordado(1).
 
 /* Initial goals */
 
 /* Plans */
+
++!estudar_robotica : ocupado(true) <-
+	.print("Depois eu estudo. Estou ocupado!").
+	
++!ir_academia : ocupado(true) <-
+	.print("NÃ£o tenho como malhar agora").
+	
++!passear_parque : ocupado(true) <-
+	.print("Cooper? SÃ³ amanhÃ£ Jarvis").
+
++!manter_armaduras : ocupado(true) <-
+	.print("As armaduras vÃ£o ter que esperar!").
+
++!ler_livro : ocupado(true) <-
+	.print("Vou ter que deixar o livro para depois!").
+
++!estudar_robotica : ocupado(false) <-
+	+ocupado(true);
+	.wait(30000000);
+	.print("Se aprofundando em robÃ³tica");
+	+ocupado(false).
+	
++!ir_academia : ocupado(false) <-
+	+ocupado(true);
+	.wait(30000000);
+	.print("Malhando");
+	+ocupado(false).
+	
++!passear_parque : ocupado(false) <-
+	+ocupado(true);
+	.wait(30000000);
+	.print("Hora do Cooper");
+	+ocupado(false).
+	
+
++!manter_armaduras : ocupado(false) <-
+	+ocupado(true);
+	.wait(30000000);
+	.print("Realizando a manutenÃ§Ã£o das armaduras");
+	+ocupado(false).
+	
+
++!ler_livro : ocupado(false) <-
+	+ocupado(true);
+	.wait(30000000);
+	.print("Lendo um livro");
+	+ocupado(false).
+
 
 +!posicionar.
 
@@ -33,15 +82,16 @@ relogio(IDArtifact).
 	.send(jarvis, tell, nao_marcar_reuniao(Horario, Pessoa)).
 
 
-//Novo plano para colocar um veículo para o Tony se locomover para suas reuniões
+//Novo plano para colocar um veï¿½culo para o Tony se locomover para suas reuniï¿½es
 +!escolherVeiculo(Horario, Pessoa) : true 
 <- 	
-	.print("Jarvis, por favor prepare um carro para a minha reunião com ", Pessoa, " as ", Horario);
+	.print("Jarvis, por favor prepare um carro para a minha reuniï¿½o com ", Pessoa, " as ", Horario);
 	.send(jarvis, achieve, escolher_carro).
 
 
-+!jantar(Carne, Cebola, Macarrao, Molho, Refrigerante): Macarrao == true & Molho == true <-
++!jantar(Carne, Cebola, Macarrao, Molho, Refrigerante): ocupado(false) & Macarrao == true & Molho == true <-
 	.send(peper, achieve, cozinhar(true));
+	+ocupado(true);
 	.print("Adoraria jantar com voce, Pepper").
 
 +!jantar(Carne, Cebola, Macarrao, Molho, Refrigerante): Macarrao == false | Molho == false <-
@@ -52,12 +102,16 @@ relogio(IDArtifact).
 //+!convidar_festa : true <-
 //	.send("jarvis", achieve, convidar_festa).
 	
+
+	
 +dormir : true <-
-	.print("Preciso dormir bem. Ser o homem de ferro não é fácil");
+	.print("Preciso dormir bem. Ser o homem de ferro nï¿½o ï¿½ fï¿½cil");
+	+ocupado(true);
 	.send(jarvis, achieve, dormi).
 	
 +acordar : true <-
 	.print("Ok, estou acordado");
+	+ocupado(false);
 	.send(jarvis, achieve, acordei).
 	
 +aviso_perigo(Coord): Coord > 1 & Coord < 5 

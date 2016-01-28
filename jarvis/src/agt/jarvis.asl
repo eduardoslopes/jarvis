@@ -5,6 +5,16 @@ protecao_noturna_ativada("no").
 houve_jantar(false).
 tony_acordado(true).
 
+aviso_tony_estudar(false).
+
+aviso_tony_academia(false).
+	
+aviso_tony_parque(false).
+
+aviso_tony_mecanica(false).
+	
+aviso_tony_ler(false).
+
 /* Initial goals */
 !criar_relogio.
 !criar_agenda.
@@ -58,8 +68,6 @@ tony_acordado(true).
 	<- .print("Confirmando reuniao para às ", Horario, "h com ", Pessoa);
 	marcar_reuniao_agenda(Horario, Pessoa).	
 
-+!dia_a_dia.
-
 +!verificar_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante): true <-
 	ingredientes_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante);
 	.send(peper, tell, tem_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante)).
@@ -88,7 +96,7 @@ tony_acordado(true).
 <- .print("Ok tony, irei preparar um carro para o senhor prontamente!");
 	.wait(1000);
 	escolherUmCarro(Carro);
-	.print("Tony, o seu ", Carro, " est� pronto!");
+	.print("Tony, o seu ", Carro, " est� pronto!");
 	.send(tony, tell, carro(Carro)).
 	
 
@@ -96,6 +104,7 @@ tony_acordado(true).
 	.send(peper, achieve, hora_jantar).
 
 +tic : true <-
+	habitosTony;
 	protecaoNoturna.
 
 +reuniao(Horario, Pessoa) : true <- !reuniao(Horario, Pessoa). 
@@ -114,6 +123,31 @@ tony_acordado(true).
 	busca_coordenada_local(Lugar, Coordenada);
 	!avisar_local(Coordenada);
 	-nova_noticia(Noticia, Lugar).
+
++tony_estudar : aviso_tony_estudar(false) <-
+	.print("Tony, está na sua hora de estudar robótica");
+	-+aviso_tony_estudar(true);
+	.send(tony,achieve, estudar_robotica).
+
++tony_academia : aviso_tony_academia(false) <-
+	.print("Tony, vai malhar agora?");
+	-+aviso_tony_academia(true);
+	.send(tony,achieve, ir_academia).
+	
++tony_parque : aviso_tony_parque(false) <-
+	.print("Tony, já separei seus sapatos. Está na hora.");
+	-+aviso_tony_parque(true);
+	.send(tony,achieve, passear_parque).
+
++tony_mecanica : aviso_tony_mecanica(false) <-
+	.print("Tony, as armaduras clamam por manutenção");
+	-+aviso_tony_mecanica(true);
+	.send(tony,achieve, manter_armaduras).
+	
++tony_ler : aviso_tony_ler(false) <-
+	.print("Tony, hora da leitura.");
+	-+aviso_tony_ler(true);
+	.send(tony,achieve, ler_livro).
 		
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

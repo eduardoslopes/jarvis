@@ -39,6 +39,29 @@ public class Relogio extends Artifact {
 	}
 	
 	@OPERATION
+	void habitosTony() {
+		Calendar relogio= new GregorianCalendar();
+		int horaMomento = relogio.get(Calendar.HOUR_OF_DAY);
+		switch(horaMomento){
+		case 10:
+			signal("tony_estudar");
+			break;
+		case 13:
+			signal("tony_academia");
+			break;
+		case 16:
+			signal("tony_parque");
+			break;
+		case 19:
+			signal("tony_mecanica");
+			break;
+		case 22:
+			signal("tony_ler");
+			break;
+		}
+	}
+	
+	@OPERATION
 	void ehOutroDia(OpFeedbackParam<Boolean> outroDia) {
 		Calendar hora = new GregorianCalendar();
 		if(hora.get(Calendar.HOUR_OF_DAY) >= 19) 
