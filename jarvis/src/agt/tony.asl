@@ -19,6 +19,14 @@ carro(Carro).
 <- lookupArtifact("relogio", ID).
 
 
++!arCondicionado(A) : A >= 20 | A <= 15
+ <- .send(jarvis, achieve, modificarTemperatura(16, 20));
+ 	.print("Jarvis, esta temperatura não me agrada, por favor modifique-a!"). 
+
++!arCondicionado(A) : A <= 20 | A >= 15
+ <- .print("Jarvis, esta temperatura me agrada, obrigado!"). 
+
+
 +carro(Carro) : true
 <- .print("Obrigado por ter me providenciado o meu ", Carro, " Jarvis!").
 
@@ -34,10 +42,10 @@ carro(Carro).
 	.send(jarvis, tell, nao_marcar_reuniao(Horario, Pessoa)).
 
 
-//Novo plano para colocar um veículo para o Tony se locomover para suas reuniões
+//Novo plano para colocar um veï¿½culo para o Tony se locomover para suas reuniï¿½es
 +!escolherVeiculo(Horario, Pessoa) : true 
 <- 	
-	.print("Jarvis, por favor prepare um carro para a minha reunião com ", Pessoa, " as ", Horario);
+	.print("Jarvis, por favor prepare um carro para a minha reuniï¿½o com ", Pessoa, " as ", Horario);
 	.send(jarvis, achieve, escolher_carro).
 
 
@@ -63,10 +71,11 @@ carro(Carro).
 	
 	
 +aviso_perigo(Coord): Coord > 1 & Coord < 5 
-	<- .print("Jarvis, envie armaduras para coordenada ", Coord).
+	<- .print("Jarvis, envie armaduras para coordenada ", Coord);
+	.send(jarvis, achieve, enviar_armaduras(Coord)).
 	
 +aviso_perigo(Coord): Coord < 2 | Coord >= 5 
-	<- .print("Jarvis, Nao me importo com este lugar! ", Coord).
+	<- .print("Jarvis, Nao me importo com ", Coord).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

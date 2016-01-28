@@ -38,8 +38,12 @@
 +tem_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante) : true <-
 	!tony_jantar(Carne, Cebola, Macarrao, Molho, Refrigerante).
 
+<<<<<<< HEAD
 +comida_pronta : true <-
 	.print("Comida está pronta").
+=======
++!tem_armadura : true .
+>>>>>>> refs/heads/ArCondicionado
 
 
 { include("$jacamoJar/templates/common-cartago.asl") }
