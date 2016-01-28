@@ -17,9 +17,8 @@ tony_acordado(true).
 +!criar_relogio : true <-
 	makeArtifact("relogio", "jarvis.Relogio", [], IDArtifact);
 	focus(IDArtifact);
-	startRelogio;
-	.send(tony, tell, relogio(IDArtifact)).
-
+	startRelogio.
+	
 +!criar_garagem : true <-
 	makeArtifact("garagem", "objects.Garagem", [], IDArtifact);
 	focus(IDArtifact);
@@ -114,7 +113,15 @@ tony_acordado(true).
 	busca_coordenada_local(Lugar, Coordenada);
 	!avisar_local(Coordenada);
 	-nova_noticia(Noticia, Lugar).
-		
+
++acordar : true & tony_acordado(false)
+<- .send(tony, achieve, ficar_acordado).
+	//-+tony_acordado(true).
+
++dormir : true & tony_acordado(true)
+<- .send(tony, achieve, ir_dormir).
+	//-+tony_acordado(false).
+
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
 
