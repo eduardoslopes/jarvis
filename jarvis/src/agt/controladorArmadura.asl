@@ -17,6 +17,13 @@ desposicionado.
 	<- .print("Fora da posicao noturna");
 	-posicionado;
 	+desposicionado.
+	
++!tem_armadura : true 
+	<- .my_name(MeuNome);
+	.send(jarvis, achieve, adiciona(MeuNome)).
+	
++!ir_para(Coord) : true
+	<- .print("Indo para ", Coord).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

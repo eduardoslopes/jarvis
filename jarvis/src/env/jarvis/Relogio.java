@@ -11,6 +11,8 @@ public class Relogio extends Artifact {
 	
 	final static long TICK_HOUR = 3600000;
 	final static long TICK_SEC = 1000;
+	final static long TICK_TIME = 3600000;
+	
 	long contadorTempo;
 	boolean ligado;
 	
@@ -23,6 +25,7 @@ public class Relogio extends Artifact {
 		ligado = true;
 		execInternalOp("hora");
 		execInternalOp("segundos");
+		execInternalOp("tic");
 	}
 	
 	@OPERATION
@@ -38,6 +41,14 @@ public class Relogio extends Artifact {
 		} else if(hora.get(Calendar.HOUR_OF_DAY) >= 6) {
 			signal("desativar_seguranca_noturna");
 		}
+	}
+	
+
+	@OPERATION
+	void ehOutroDia(OpFeedbackParam<Boolean> outroDia) {
+		Calendar hora = new GregorianCalendar();
+		if(hora.get(Calendar.HOUR_OF_DAY) == 0) 
+			outroDia.set(true); 
 	}
 	
 	@INTERNAL_OPERATION
@@ -58,6 +69,15 @@ public class Relogio extends Artifact {
 	@INTERNAL_OPERATION
 	void segundos() {
 		while(ligado) {
+			signal("tic");
+			await_time(TICK_SEC);
+		}
+	}
+	
+	@INTERNAL_OPERATION
+	void tic() {
+		while(ligado) {
+			
 			signal("tic");
 			await_time(TICK_SEC);
 		}
