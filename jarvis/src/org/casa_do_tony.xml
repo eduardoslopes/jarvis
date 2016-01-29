@@ -42,7 +42,7 @@
 					</goal>
 
 					<goal id="criar_artefatos">
-						<plan operator="sequence">
+						<plan operator="parallel">
 							<goal id="criar_relogio" />
 							<goal id="criar_agenda" />
 							<goal id="criar_geladeira" />
@@ -73,7 +73,6 @@
 				<goal id="criar_garagem" />
 				<goal id="criar_arsenal" />
 				<goal id="criar_arcondicionado" />
-				<goal id="criar_artefatos" />
 			</mission>
 
 
