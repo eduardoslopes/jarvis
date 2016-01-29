@@ -66,6 +66,10 @@
 				<goal id="dia_a_dia" />
 			</mission>
 
+			<mission id="missaoCriar" min="1" max="1">
+				<goal id="criar_artefatos" />
+			</mission>
+
 			<mission id="missaoCriarArtefatos" min="1" max="1">
 				<goal id="criar_relogio" />
 				<goal id="criar_agenda" />
@@ -83,10 +87,12 @@
 		<norm id="norm1" type="obligation" role="assistente_pessoal"
 			mission="missaoDefenderPontoDeInteresse" />
 
-
-
 		<norm id="norm4" type="obligation" role="assistente_pessoal"
 			mission="missaoPrincipal" />
+
+		<norm id="norm6" type="obligation" role="assistente_pessoal"
+			mission="missaoCriar" />
+
 
 		<norm id="norm5" type="obligation" role="assistente_pessoal"
 			mission="missaoCriarArtefatos" />
