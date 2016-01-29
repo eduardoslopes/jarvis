@@ -18,7 +18,8 @@ mas jarvis {
 		group casa_tony_group: casa_do_tony {
 			responsible-for: a1
 			players: jarvis assistente_pessoal,
- 					observador juiz
+ 					observador juiz,
+ 					peper namorada
         	debug	         
 		}
 		scheme a1: casa_inteligente {

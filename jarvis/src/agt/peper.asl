@@ -3,13 +3,15 @@
 /* Initial beliefs and rules */
 
 /* Initial goals */
-!criar_fogao.
-!criar_carteira.
-!criar_cardapio.
+//!criar_fogao.
+//!criar_carteira.
+//!criar_cardapio.
 /* Plans */
 
 +!posicionar.
 +!desposicionar.
+
++!criar_objetosPeper : true .
 
 +!criar_fogao : true <-
 	makeArtifact("fogao", "jarvis.Fogao", [], IDArtifact);

@@ -7,7 +7,8 @@
 +!criar_armadura(Nome): true
 	<- .print("Criando ", Nome);
 	.create_agent(Nome ,"controladorArmadura.asl").
-	
+
+
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
 

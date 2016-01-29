@@ -7,7 +7,7 @@ desposicionado.
 /* Initial goals */
 
 /* Plans */
-	
+ 
 +!posicionar : desposicionado
 	<- .print("Assumindo posicao noturna");
 	-desposicionado;

@@ -12,6 +12,7 @@
 		<role-definitions>
 			<role id="assistente_pessoal" />
 			<role id="juiz" />
+			<role id="namorada" />
 
 		</role-definitions>
 
@@ -19,6 +20,7 @@
 			<roles>
 				<role id="assistente_pessoal" min="1" max="1" />
 				<role id="juiz" min="1" max="1" />
+				<role id="namorada" min="1" max="1" />
 			</roles>
 
 			<!-- <links> <link from="role1" to="role2" type="authority" scope="intra-group" 
@@ -31,27 +33,34 @@
 	<functional-specification>
 		<scheme id="casa_inteligente">
 
-			<goal id="dia_a_dia">
+			<goal id="dia_a_dia" ttf="1 day">
 				<plan operator="parallel">
 
 					<goal id="defender_ponto_interesse">
 						<plan operator="parallel">
-							<goal id="buscar_noticias" />
-							<goal id="criar_gps" />
+							<goal id="buscar_noticias" ttf="5 seconds" />
+							<goal id="criar_gps" ttf="5 seconds" />
 						</plan>
 					</goal>
 
-					<goal id="criar_artefatos">
+					<goal id="criar_artefatos" ttf="25 seconds">
 						<plan operator="parallel">
-							<goal id="criar_relogio" />
-							<goal id="criar_agenda" />
-							<goal id="criar_geladeira" />
-							<goal id="criar_garagem" />
-							<goal id="criar_arsenal" />
-							<goal id="criar_arcondicionado" />
+							<goal id="criar_relogio" ttf="5 seconds" />
+							<goal id="criar_agenda" ttf="5 seconds" />
+							<goal id="criar_geladeira" ttf="5 seconds" />
+							<goal id="criar_garagem" ttf="5 seconds" />
+							<goal id="criar_arsenal" ttf="5 seconds" />
+							<goal id="criar_arcondicionado" ttf="5 seconds" />
 						</plan>
 					</goal>
 
+					<goal id="criar_objetosPeper" ttf="25 seconds">
+						<plan operator="parallel">
+							<goal id="criar_fogao" ttf="5 seconds" />
+							<goal id="criar_carteira" ttf="5 seconds" />
+							<goal id="criar_cardapio" ttf="5 seconds" />
+						</plan>
+					</goal>
 
 				</plan>
 			</goal>
@@ -60,6 +69,17 @@
 				<goal id="buscar_noticias" />
 				<goal id="criar_gps" />
 				<goal id="defender_ponto_interesse" />
+			</mission>
+
+
+			<mission id="missaoDeNamorada" min="1" max="10">
+				<goal id="criar_objetosPeper" />
+			</mission>
+
+			<mission id="missaoCriar2" min="1" max="10">
+				<goal id="criar_fogao" />
+				<goal id="criar_carteira" />
+				<goal id="criar_cardapio" />
 			</mission>
 
 			<mission id="missaoPrincipal" min="1" max="1">
@@ -96,6 +116,12 @@
 
 		<norm id="norm5" type="obligation" role="assistente_pessoal"
 			mission="missaoCriarArtefatos" />
+		
+		<norm id="norm7" type="obligation" role="namorada"
+			mission="missaoDeNamorada" />
+		
+		<norm id="norm8" type="obligation" role="namorada"
+			mission="missaoCriar2" />
 
 	</normative-specification>
 

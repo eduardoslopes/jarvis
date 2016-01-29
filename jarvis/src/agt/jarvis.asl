@@ -17,6 +17,7 @@ avisou_hora_dormir(false).
 
 /* Plans */
 
+
 +!criar_artefatos : true .
 
 +!criar_arcondicionado : true
