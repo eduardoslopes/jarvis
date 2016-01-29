@@ -10,7 +10,23 @@ tony_acordado(true).
 !criar_agenda.
 !criar_geladeira.
 !criar_garagem.
+!criar_arsenal.
+!criar_arcondicionado.
 /* Plans */
+
++!criar_arcondicionado : true
+<- 	makeArtifact("arCondicionado", "objects.ArCondicionado", [1], IDArtifact);
+	focus(IDArtifact);
+	definirTemperatura(12,Temp);
+	.print("Ar-condicionado ligado!");
+	.print("Temperatura ambiente: ", Temp, " graus!");
+	.send(tony, achieve, arCondicionado(12)).
+
+
++!modificarTemperatura(A, B) : true
+<- 	modificarTemperatura(A, B, TempValor);
+	.send(tony, achieve, arCondicionado(TempValor));
+	.print("Tony, a temperatura foi alterada para ", TempValor, " graus!").
 
 +!defender_ponto_interesse. 
 
@@ -19,7 +35,7 @@ tony_acordado(true).
 	focus(IDArtifact);
 	startRelogio;
 	.send(tony, tell, relogio(IDArtifact)).
-
+	
 +!criar_garagem : true <-
 	makeArtifact("garagem", "objects.Garagem", [], IDArtifact);
 	focus(IDArtifact);
@@ -42,6 +58,11 @@ tony_acordado(true).
 +!criar_agenda : true <-
 	makeArtifact("agenda", "jarvis.Agenda", [], IDArtifact);
 	focus(IDArtifact).
+	
++!criar_arsenal : true 
+	<- makeArtifact("arsenal", "jarvis.ArsenalArmaduras", [], IDArtifact);
+	focus(IDArtifact);
+	.broadcast(achieve, tem_armadura).
 
 +!avisar_local(Coord): Coord > 1 & Coord < 6 
 	<- .print("Tony, existe perigo em ", Coord);
@@ -50,9 +71,6 @@ tony_acordado(true).
 +!avisar_local(Coord): Coord < 2 | Coord >= 6 
 	<- .print("Tony, existe perigo em ", Coord);
 	.send(tony, tell, aviso_perigo(Coord)).
-
-//+!avisar_local(Coord) : tony_acordado(false) <-
-//	.send(tony, tell, acordar).
 	
 +!marcar_reuniao(Horario, Pessoa) : true
 	<- .print("Confirmando reuniao para Ã s ", Horario, "h com ", Pessoa);
@@ -88,9 +106,22 @@ tony_acordado(true).
 <- .print("Ok tony, irei preparar um carro para o senhor prontamente!");
 	.wait(1000);
 	escolherUmCarro(Carro);
-	.print("Tony, o seu ", Carro, " está pronto!");
+	.print("Tony, o seu ", Carro, " estï¿½ pronto!");
 	.send(tony, tell, carro(Carro)).
 	
++!adiciona(NomeArmadura): true
+	<- inserirNoArsenal(NomeArmadura).
+	
++!enviar_armaduras(Coord): true
+	<- selecionaArmaduras(Coord).
+
++!destruido(Nome): true
+	<- percaNoArsenal(Nome).
+
++invoca(Arm, Coord): true 
+	<- .print("Invocando Armadura ", Arm);
+	 .send(Arm, achieve, ir_para(Coord));
+	 .send(esbagacador_armaduras, achieve, julgar_armadura(Arm, Coord)).
 
 +hora_jantar : houve_jantar(false) <-
 	.send(peper, achieve, hora_jantar).
@@ -114,9 +145,20 @@ tony_acordado(true).
 	busca_coordenada_local(Lugar, Coordenada);
 	!avisar_local(Coordenada);
 	-nova_noticia(Noticia, Lugar).
-		
+	
++criar_armadura(Nome): true
+	<- .send(ajudante, achieve, criar_armadura(Nome)).
+	
+
++acordar : true & tony_acordado(false)
+<- .send(tony, achieve, ficar_acordado).
+	//-+tony_acordado(true).
+
++dormir : true & tony_acordado(true)
+<- .send(tony, achieve, ir_dormir).
+	//-+tony_acordado(false).
+
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
 
-// uncomment the include below to have a agent that always complies with its organization  
 { include("$jacamoJar/templates/org-obedient.asl") }
