@@ -8,13 +8,15 @@ avisou_hora_acordar(false).
 avisou_hora_dormir(false).
 
 /* Initial goals */
-!criar_relogio.
-!criar_agenda.
-!criar_geladeira.
-!criar_garagem.
-!criar_arsenal.
-!criar_arcondicionado.
+//!criar_relogio.
+//!criar_agenda.
+//!criar_geladeira.
+//!criar_garagem.
+//!criar_arsenal.
+//!criar_arcondicionado.
+
 /* Plans */
+
 
 +!criar_arcondicionado : true
 <- 	makeArtifact("arCondicionado", "objects.ArCondicionado", [1], IDArtifact);

@@ -11,7 +11,6 @@
 
 		<role-definitions>
 			<role id="assistente_pessoal" />
-			<role id="chefe" />
 			<role id="juiz" />
 
 		</role-definitions>
@@ -19,7 +18,6 @@
 		<group-specification id="casa_do_tony">
 			<roles>
 				<role id="assistente_pessoal" min="1" max="1" />
-				<role id="chefe" min="1" max="1" />
 				<role id="juiz" min="1" max="1" />
 			</roles>
 
@@ -42,11 +40,21 @@
 							<goal id="criar_gps" />
 						</plan>
 					</goal>
-	
-					
-					</plan>
-			</goal>
 
+					<goal id="criar_artefatos">
+						<plan operator="sequence">
+							<goal id="criar_relogio" />
+							<goal id="criar_agenda" />
+							<goal id="criar_geladeira" />
+							<goal id="criar_garagem" />
+							<goal id="criar_arsenal" />
+							<goal id="criar_arcondicionado" />
+						</plan>
+					</goal>
+
+
+				</plan>
+			</goal>
 
 			<mission id="missaoDefenderPontoDeInteresse" min="1" max="10">
 				<goal id="buscar_noticias" />
@@ -54,10 +62,18 @@
 				<goal id="defender_ponto_interesse" />
 			</mission>
 
-						
-						
 			<mission id="missaoPrincipal" min="1" max="1">
 				<goal id="dia_a_dia" />
+			</mission>
+
+			<mission id="missaoCriarArtefatos" min="1" max="1">
+				<goal id="criar_relogio" />
+				<goal id="criar_agenda" />
+				<goal id="criar_geladeira" />
+				<goal id="criar_garagem" />
+				<goal id="criar_arsenal" />
+				<goal id="criar_arcondicionado" />
+				<goal id="criar_artefatos" />
 			</mission>
 
 
@@ -65,14 +81,17 @@
 	</functional-specification>
 
 	<normative-specification>
-	<norm id="norm1" type="obligation" role="assistente_pessoal"
-		mission="missaoDefenderPontoDeInteresse" />
+		<norm id="norm1" type="obligation" role="assistente_pessoal"
+			mission="missaoDefenderPontoDeInteresse" />
 
 
 
-	<norm id="norm4" type="obligation" role="assistente_pessoal"
-		mission="missaoPrincipal" />
+		<norm id="norm4" type="obligation" role="assistente_pessoal"
+			mission="missaoPrincipal" />
 
-</normative-specification>
+		<norm id="norm5" type="obligation" role="assistente_pessoal"
+			mission="missaoCriarArtefatos" />
+
+	</normative-specification>
 
 </organisational-specification>
