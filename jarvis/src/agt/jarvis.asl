@@ -4,6 +4,8 @@
 protecao_noturna_ativada("no").
 houve_jantar(false).
 tony_acordado(true).
+avisou_hora_acordar(false).
+avisou_hora_dormir(false).
 
 /* Initial goals */
 !criar_relogio.
@@ -69,11 +71,13 @@ tony_acordado(true).
 	-+houve_jantar(true).
 
 // Sinal enviado pelo tony para avisar que vai dormir
-+!dormi : true <-
++!dormi : tony_acordado(true) <-
+	.print("Ok, boa noite");
 	+tony_acordado(false).	
 
 // Sinal enviado pelo tony para avisar que acordou
-+!acordei : true <-
++!acordei : tony_acordado(false) <-
+	.print("Ok, bom dia");
 	+tony_acordado(true).
 	
 +!reuniao(Horario, Pessoa) : tony_acordado(true) <- 
@@ -88,13 +92,27 @@ tony_acordado(true).
 <- .print("Ok tony, irei preparar um carro para o senhor prontamente!");
 	.wait(1000);
 	escolherUmCarro(Carro);
-	.print("Tony, o seu ", Carro, " est� pronto!");
+	.print("Tony, o seu ", Carro, " est� pronto!");
 	.send(tony, tell, carro(Carro)).
 	
++eh_outro_dia : true <-
+	-+ avisou_hora_acordar(false);
+	-+ avisou_hora_dormir(false);
+	-+ houve_jantar(false).
 
 +hora_jantar : houve_jantar(false) <-
 	.send(peper, achieve, hora_jantar).
-
+	
++acordar : tony_acordado(false) & avisou_hora_acordar(false) <-
+	.print("Já é hora de acordar, Tony");
+	-+avisou_hora_acordar(true);
+	.send(tony, achieve, acordar).
+	
++dormir : tony_acordado(true) & avisou_hora_dormir(false) <-
+	.print("Já é 0h, Tony");
+	-+avisou_hora_dormir(true);
+	.send(tony, achieve, dormir).
+	
 +tic : true <-
 	protecaoNoturna.
 

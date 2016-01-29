@@ -4,8 +4,7 @@
 
 aviso_perigo(Coord).
 carro(Carro).
-relogio(IDArtifact).
-//acordado(1).
+acordado(true).
 
 /* Initial goals */
 
@@ -14,9 +13,6 @@ relogio(IDArtifact).
 +!posicionar.
 
 +!desposicionar.
-
-+relogio(IDArtifact) : true
-<-lookupArtifact(IDArtifact).
 
 +carro(Carro) : true
 <- .print("Obrigado por ter me providenciado o meu ", Carro, " Jarvis!").
@@ -33,10 +29,10 @@ relogio(IDArtifact).
 	.send(jarvis, tell, nao_marcar_reuniao(Horario, Pessoa)).
 
 
-//Novo plano para colocar um veículo para o Tony se locomover para suas reuniões
+//Novo plano para colocar um veï¿½culo para o Tony se locomover para suas reuniï¿½es
 +!escolherVeiculo(Horario, Pessoa) : true 
 <- 	
-	.print("Jarvis, por favor prepare um carro para a minha reunião com ", Pessoa, " as ", Horario);
+	.print("Jarvis, por favor prepare um carro para a minha reuniï¿½o com ", Pessoa, " as ", Horario);
 	.send(jarvis, achieve, escolher_carro).
 
 
@@ -52,13 +48,19 @@ relogio(IDArtifact).
 //+!convidar_festa : true <-
 //	.send("jarvis", achieve, convidar_festa).
 	
-+dormir : true <-
-	.print("Preciso dormir bem. Ser o homem de ferro não é fácil");
++!dormir : acordado(true) <-
+	.print("Preciso dormir bem. Ser o homem de ferro nao eh facil");
+	-+acordado(false);
 	.send(jarvis, achieve, dormi).
 	
-+acordar : true <-
++!dormir : acordado(false).
+	
++!acordar : acordado(false) <-
 	.print("Ok, estou acordado");
+	-+acordado(true);
 	.send(jarvis, achieve, acordei).
+	
++!acordar : acordado(true).
 	
 +aviso_perigo(Coord): Coord > 1 & Coord < 5 
 	<- .print("Jarvis, envie armaduras para coordenada ", Coord).

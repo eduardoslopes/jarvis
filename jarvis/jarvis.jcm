@@ -12,7 +12,6 @@ mas jarvis {
     	artifact mk: jarvis.Armadura(10)
     }
     
-    
     organisation casa_tony: casa_do_tony.xml {
 		group casa_tony_group: casa_do_tony {
 			responsible-for: a1

@@ -9,7 +9,8 @@ import cartago.*;
 
 public class Relogio extends Artifact {
 	
-	final static long TICK_TIME = 1000;
+	final static long TICK_HOUR = 3600000;
+	final static long TICK_SEC = 1000;
 	long contadorTempo;
 	boolean ligado;
 	
@@ -19,7 +20,8 @@ public class Relogio extends Artifact {
 	
 	@OPERATION
 	void startRelogio() {
-		ligado = true;		
+		ligado = true;
+		execInternalOp("hora");
 		execInternalOp("segundos");
 	}
 	
@@ -38,29 +40,26 @@ public class Relogio extends Artifact {
 		}
 	}
 	
-	@OPERATION
-	void ehOutroDia(OpFeedbackParam<Boolean> outroDia) {
-		Calendar hora = new GregorianCalendar();
-		if(hora.get(Calendar.HOUR_OF_DAY) >= 19) 
-			outroDia.set(true); 
+	@INTERNAL_OPERATION
+	void hora() {
+		while(ligado) {
+			Calendar hora = new GregorianCalendar();
+			if(hora.get(Calendar.HOUR_OF_DAY) == 19)
+				signal("hora_jantar");
+			else if(hora.get(Calendar.HOUR_OF_DAY) >= 8)
+				signal("acordar");
+			if(hora.get(Calendar.HOUR_OF_DAY) == 0)
+				signal("dormir");
+				signal("eh_outro_dia");
+			await_time(TICK_HOUR);
+		}
 	}
 	
 	@INTERNAL_OPERATION
 	void segundos() {
 		while(ligado) {
-			Calendar hora = new GregorianCalendar();
-			if(hora.get(Calendar.HOUR_OF_DAY) == 19){
-				signal("hora_jantar");
-			}
-			else if(hora.get(Calendar.HOUR_OF_DAY) >= 8) {
-				signal("acordar");
-			}
-			if(hora.get(Calendar.HOUR_OF_DAY) < 8) {
-				signal("dormir");
-			}
-			
 			signal("tic");
-			await_time(TICK_TIME);
+			await_time(TICK_SEC);
 		}
 	}
 	
