@@ -33,10 +33,10 @@ relogio(IDArtifact).
 	.send(jarvis, tell, nao_marcar_reuniao(Horario, Pessoa)).
 
 
-//Novo plano para colocar um veículo para o Tony se locomover para suas reuniões
+//Novo plano para colocar um veï¿½culo para o Tony se locomover para suas reuniï¿½es
 +!escolherVeiculo(Horario, Pessoa) : true 
 <- 	
-	.print("Jarvis, por favor prepare um carro para a minha reunião com ", Pessoa, " as ", Horario);
+	.print("Jarvis, por favor prepare um carro para a minha reuniï¿½o com ", Pessoa, " as ", Horario);
 	.send(jarvis, achieve, escolher_carro).
 
 
@@ -45,15 +45,18 @@ relogio(IDArtifact).
 	.print("Adoraria jantar com voce, Pepper").
 
 +!jantar(Carne, Cebola, Macarrao, Molho, Refrigerante): Macarrao == false | Molho == false <-
-	.send(peper, achieve, cozinhar(false));
-	.print("Hoje nao, Pepper. Estou com dor de cabeca...").
-	
+	.print("NÃ£o Peper!");
+	!falta(Macarrao,Molho);
+	.send(peper, achieve, falta(Macarrao,Molho)).
+
++!falta(Macarrao,Molho): Macarrao == false <-.print("Falta macarrÃ£o!").
++!falta(Macarrao,Molho): Molho == false <-.print("Falta molho.").
 //
 //+!convidar_festa : true <-
 //	.send("jarvis", achieve, convidar_festa).
 	
 +dormir : true <-
-	.print("Preciso dormir bem. Ser o homem de ferro não é fácil");
+	.print("Preciso dormir bem. Ser o homem de ferro nï¿½o ï¿½ fï¿½cil");
 	.send(jarvis, achieve, dormi).
 	
 +acordar : true <-

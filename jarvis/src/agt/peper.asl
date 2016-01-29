@@ -4,7 +4,8 @@
 
 /* Initial goals */
 !criar_fogao.
-
+!criar_carteira.
+!criar_cardapio.
 /* Plans */
 
 +!posicionar.
@@ -14,23 +15,50 @@
 	makeArtifact("fogao", "jarvis.Fogao", [], IDArtifact);
 	focus(IDArtifact).
 
++!criar_carteira : true <- 
+	makeArtifact("carteira","peper.Carteira",[],IDArtifact);
+	focus(IDArtifact).
+	
++!criar_cardapio : true <-
+	makeArtifact("cardapio","peper.Cardapio",[],IDArtifact);
+	focus(IDArtifact);
+	init.
+
 +!tony_jantar(Carne, Cebola, Macarrao, Molho, Refrigerante):true <-
-	.send("tony", achieve, jantar(Carne, Cebola, Macarrao, Molho, Refrigerante));
-	.print("Quer jantar, Tony?").
+	.print("Quer jantar, Tony?");
+	.send("tony", achieve, jantar(Carne, Cebola, Macarrao, Molho, Refrigerante)).
 	
 +!cozinhar(Confirmacao) : Confirmacao == true <- 
 	.send("jarvis", achieve, jantar_positivo);
 	.print("Farei o jantar para voce, Tony.");
 	colocar_no_fogo.
 	
-+!cozinhar(Confirmacao) : Confirmacao == false <- 
-	.print("Ok, nao farei o jantar, Tony.").
++!falta(Macarrao,Molho) :  Macarrao== false | Molho == false<-
+	.print("Certo! EntÃ£o vou pedir comida!"); 
+	!realizar_compra.
+
++!realizar_compra : true <-
+	dinheiro(Valor);
+	olharCardapio(Comida,Preco,NaoAcabouOpcoes);
+	!decidir_compra(Comida,Preco,Valor,NaoAcabouOpcoes).
+	
++!decidir_compra(Comida,Preco,Valor,NaoAcabouOpcoes): Preco <= Valor <-
+	fizEscolha;
+	retirar_dinheiro(Preco);
+	.print("Pedi ",Comida).
+											
++!decidir_compra(Comida,Preco,Valor,NaoAcabouOpcoes): 
+	NaoAcabouOpcoes & Preco > Valor <-
+	!realizar_compra.
+		
++!decidir_compra(Comida,Preco,Valor,NaoAcabouOpcoes): not NaoAcabouOpcoes <-	 
+	fizEscolha;
+	.print("NÃ£o pude pedir comida!").
 
 +dormir : true <-
-	.print("Preciso dormir bem. Ser o homem de ferro não é fácil").	
+	.print("Preciso dormir bem. Ser o homem de ferro nï¿½o ï¿½ fï¿½cil").	
 +acordar : true <-
 	.print("Ok, estou acordado").
-
 
 +!hora_jantar : true <- 
 	.send("jarvis", achieve, verificar_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante)).
