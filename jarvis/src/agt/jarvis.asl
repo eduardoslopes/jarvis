@@ -2,7 +2,7 @@
 
 /* Initial beliefs and rules */
 protecao_noturna_ativada("no").
-houve_jantar(false).
+passou_hora_jantar(false).
 tony_acordado(true).
 avisou_hora_acordar(false).
 avisou_hora_dormir(false).
@@ -85,8 +85,8 @@ avisou_hora_dormir(false).
 	.send(peper, tell, tem_na_geladeira(Carne, Cebola, Macarrao, Molho, Refrigerante)).
 	
 // O jantar foi confirmado
-+!jantar_positivo : true <-
-	-+houve_jantar(true).
++!passou_hora_jantar : true <-
+	-+passou_hora_jantar(true).
 
 // Sinal enviado pelo tony para avisar que vai dormir
 +!dormi : tony_acordado(true) <-
@@ -113,11 +113,6 @@ avisou_hora_dormir(false).
 	.print("Tony, o seu ", Carro, " est� pronto!");
 	.send(tony, tell, carro(Carro)).
 	
-+eh_outro_dia : true <-
-	-+ avisou_hora_acordar(false);
-	-+ avisou_hora_dormir(false);
-	-+ houve_jantar(false).
-	
 +!adiciona(NomeArmadura): true
 	<- inserirNoArsenal(NomeArmadura).
 	
@@ -127,12 +122,17 @@ avisou_hora_dormir(false).
 +!destruido(Nome): true
 	<- percaNoArsenal(Nome).
 
++eh_outro_dia : true <-
+	-+ avisou_hora_acordar(false);
+	-+ avisou_hora_dormir(false);
+	-+ passou_hora_jantar(false).
+
 +invoca(Arm, Coord): true 
 	<- .print("Invocando Armadura ", Arm);
 	 .send(Arm, achieve, ir_para(Coord));
 	 .send(esbagacador_armaduras, achieve, julgar_armadura(Arm, Coord)).
 
-+hora_jantar : houve_jantar(false) <-
++hora_jantar : passou_hora_jantar(false) <-
 	.send(peper, achieve, hora_jantar).
 	
 +acordar : tony_acordado(false) & avisou_hora_acordar(false) <-

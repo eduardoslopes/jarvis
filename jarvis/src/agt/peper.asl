@@ -29,7 +29,7 @@
 	.send("tony", achieve, jantar(Carne, Cebola, Macarrao, Molho, Refrigerante)).
 	
 +!cozinhar(Confirmacao) : Confirmacao == true <- 
-	.send("jarvis", achieve, jantar_positivo);
+	.send("jarvis", achieve, passou_hora_jantar);
 	.print("Farei o jantar para voce, Tony.");
 	colocar_no_fogo.
 	
@@ -42,22 +42,24 @@
 	olharCardapio(Comida,Preco,NaoAcabouOpcoes);
 	!decidir_compra(Comida,Preco,Valor,NaoAcabouOpcoes).
 	
-+!decidir_compra(Comida,Preco,Valor,NaoAcabouOpcoes): Preco <= Valor <-
++!decidir_compra(Comida,Preco,Valor,NaoAcabouOpcoes): Preco <= Valor & NaoAcabouOpcoes<-
 	fizEscolha;
+	.send("jarvis", achieve, passou_hora_jantar);
 	retirar_dinheiro(Preco);
 	.print("Pedi ",Comida).
-											
+	
 +!decidir_compra(Comida,Preco,Valor,NaoAcabouOpcoes): 
-	NaoAcabouOpcoes & Preco > Valor <-
+	Preco > Valor & NaoAcabouOpcoes <-
 	!realizar_compra.
 		
 +!decidir_compra(Comida,Preco,Valor,NaoAcabouOpcoes): not NaoAcabouOpcoes <-	 
 	fizEscolha;
+	.send("jarvis", achieve, passou_hora_jantar);
 	.print("Não pude pedir comida!").
 
 
 +dormir : true <-
-	.print("Preciso dormir bem. Ser o homem de ferro n�o � f�cil").	
+	.print("Dormindo").	
 +acordar : true <-
 	.print("Ok, estou acordado").
 

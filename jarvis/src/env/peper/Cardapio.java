@@ -21,18 +21,20 @@ public class Cardapio extends Artifact {
 	}
 	
 	@OPERATION
-	void olharCardapio(OpFeedbackParam<String> comida,OpFeedbackParam<Double> preco,OpFeedbackParam<Boolean> opcoes){
-		Comida c = comidas.get(itemCardapio);
+	void olharCardapio(OpFeedbackParam<String> comida, OpFeedbackParam<Double> preco,
+			OpFeedbackParam<Boolean> naoAcabouOpcoes) {
 
 		if(itemCardapio < comidas.size()){
+			Comida c = comidas.get(itemCardapio);
 			comida.set(c.getNome());
 			preco.set(c.getPreco());
-			opcoes.set(false);
+			naoAcabouOpcoes.set(true);
 			itemCardapio++;
 		}else{
 			comida.set("");
 			preco.set(0.0);
-			opcoes.set(true);
+			naoAcabouOpcoes.set(false);
+			itemCardapio = 0;
 		}
 	}
 	

@@ -9,7 +9,7 @@ import cartago.*;
 
 public class Relogio extends Artifact {
 	
-	final static long TICK_HOUR = 3600000;
+	final static long TICK_HOUR = 1000;
 	final static long TICK_SEC = 1000;
 	final static long TICK_TIME = 3600000;
 	
@@ -59,9 +59,10 @@ public class Relogio extends Artifact {
 				signal("hora_jantar");
 			else if(hora.get(Calendar.HOUR_OF_DAY) >= 8)
 				signal("acordar");
-			if(hora.get(Calendar.HOUR_OF_DAY) == 0)
+			if(hora.get(Calendar.HOUR_OF_DAY) == 0) {
 				signal("dormir");
 				signal("eh_outro_dia");
+			}
 			await_time(TICK_HOUR);
 		}
 	}
