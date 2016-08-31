@@ -7,7 +7,7 @@ import java.util.Random;
 import cartago.*;
 
 public class Carteira extends Artifact {
-	private double valor = (new Random().nextDouble()%500.0)+200.0;
+	private double valor = (new Random().nextDouble()%500.0)+50.0;
 	
 	void init(int initialValue) {
 		

@@ -13,7 +13,6 @@ goodGuys[M].
 
 /* Plans */
 
-
 +oblUnfulfilled(obligation(Ag,_,achieved(Sch,_,Ag),_ ) )[artifact_id(AId)] 
    <- .print("Agente ",Ag," não fez o que foi ordenado!");
    	  +badGuys[Ag];
