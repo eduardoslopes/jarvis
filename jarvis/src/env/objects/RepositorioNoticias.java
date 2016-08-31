@@ -19,6 +19,7 @@ public class RepositorioNoticias {
 		noticias.add(new Noticia("Assasinato em serie", "Russia"));
 		noticias.add(new Noticia("Escandalo de Corrupcao", "Brasil"));
 		noticias.add(new Noticia("Surto de gripe", "Africa do Sul"));
+		noticias.add(new Noticia("Corte na Educacao", "Brasil"));
 	}
 	
 	public Noticia getNoticia(){
